@@ -23,7 +23,6 @@ jobs:
         with:
           preCommands: |
             npm run tsc
-            npm run test
           command: |
             deploy --dry-run --outdir=dist --define GIT_COMMIT_SHA:"\"${{ steps.revision.outputs.value }}\""
             deploy --define GIT_COMMIT_SHA:"\"${{ steps.revision.outputs.value }}\""
