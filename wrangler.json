@@ -12,9 +12,9 @@
 	"observability": {
 		"enabled": true
 	},
-	"route": {
-		"pattern": "atlan.world/*",
-		"zone_name": "atlan.world"
+	"routes": {
+		"pattern": "atlan.world",
+		"custom_domain": true
 	},
 	"upload_source_maps": true,
 	"version_metadata": {
