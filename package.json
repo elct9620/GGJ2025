@@ -23,7 +23,10 @@
 	"dependencies": {
 		"@aws-sdk/client-sesv2": "^3.734.0",
 		"@sentry/cloudflare": "^8.51.0",
+		"@types/email-reply-parser": "^1.4.2",
+		"email-reply-parser": "^1.9.2",
 		"mimetext": "^3.0.27",
+		"postal-mime": "^2.4.3",
 		"reflect-metadata": "^0.2.2",
 		"tsyringe-neo": "^5.1.0"
 	}

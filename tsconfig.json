@@ -46,7 +46,8 @@
 		/* Alias */
 		"baseUrl": ".",
 		"paths": {
-			"@app/*": ["src/app/*"]
+			"@app/*": ["src/app/*"],
+			"@controller/*": ["src/controller/*"]
 		}
 	},
 	"exclude": ["test"],
