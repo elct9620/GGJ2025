@@ -21,8 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import type { StackLineParser, StackLineParserFn, StackParser } from '@sentry/core';
-import { basename, createStackParser, nodeStackLineParser } from '@sentry/core';
+import type {
+	StackLineParser,
+	StackLineParserFn,
+	StackParser,
+} from "@sentry/core";
+import { basename, createStackParser, nodeStackLineParser } from "@sentry/core";
 
 type GetModuleFn = (filename: string | undefined) => string | undefined;
 
@@ -39,7 +43,10 @@ function workersStackLineParser(getModule?: GetModuleFn): StackLineParser {
 		if (result) {
 			const filename = result.filename;
 			// Workers runtime runs a single bundled file that is always in a virtual root
-			result.abs_path = filename !== undefined && !filename.startsWith('/') ? `/${filename}` : filename;
+			result.abs_path =
+				filename !== undefined && !filename.startsWith("/")
+					? `/${filename}`
+					: filename;
 			// There is no way to tell what code is in_app and what comes from dependencies (node_modules), since we have one bundled file.
 			// So everything is in_app, unless an error comes from runtime function (ie. JSON.parse), which is determined by the presence of filename.
 			result.in_app = filename !== undefined;
@@ -62,8 +69,10 @@ export function getModule(filename: string | undefined): string | undefined {
 	}
 
 	// In Cloudflare Workers there is always only one bundled file
-	return basename(filename, '.js');
+	return basename(filename, ".js");
 }
 
 /** Cloudflare Workers stack parser */
-export const defaultStackParser: StackParser = createStackParser(workersStackLineParser(getModule));
+export const defaultStackParser: StackParser = createStackParser(
+	workersStackLineParser(getModule),
+);

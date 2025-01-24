@@ -8,12 +8,14 @@
 		"start": "wrangler dev",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
-		"tsc": "tsc"
+		"tsc": "tsc",
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.6.4",
 		"@cloudflare/workers-types": "^4.20250121.0",
 		"@types/node": "^22.10.10",
+		"husky": "^9.1.7",
 		"prettier": "^3.4.2",
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"typescript": "^5.5.2",

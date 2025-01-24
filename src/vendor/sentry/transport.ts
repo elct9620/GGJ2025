@@ -1,5 +1,10 @@
-import type { BaseTransportOptions, Transport, TransportMakeRequestResponse, TransportRequest } from '@sentry/core';
-import { SentryError, createTransport, suppressTracing } from '@sentry/core';
+import type {
+	BaseTransportOptions,
+	Transport,
+	TransportMakeRequestResponse,
+	TransportRequest,
+} from "@sentry/core";
+import { SentryError, createTransport, suppressTracing } from "@sentry/core";
 
 export interface CloudflareTransportOptions extends BaseTransportOptions {
 	/** Fetch API init parameters. */
@@ -36,9 +41,13 @@ export class IsolatedPromiseBuffer {
 	/**
 	 * @inheritdoc
 	 */
-	public add(taskProducer: () => PromiseLike<TransportMakeRequestResponse>): PromiseLike<TransportMakeRequestResponse> {
+	public add(
+		taskProducer: () => PromiseLike<TransportMakeRequestResponse>,
+	): PromiseLike<TransportMakeRequestResponse> {
 		if (this._taskProducers.length >= this._bufferSize) {
-			return Promise.reject(new SentryError('Not adding Promise because buffer limit was reached.'));
+			return Promise.reject(
+				new SentryError("Not adding Promise because buffer limit was reached."),
+			);
 		}
 
 		this._taskProducers.push(taskProducer);
@@ -79,11 +88,15 @@ export class IsolatedPromiseBuffer {
 /**
  * Creates a Transport that uses the native fetch API to send events to Sentry.
  */
-export function makeCloudflareTransport(options: CloudflareTransportOptions): Transport {
-	function makeRequest(request: TransportRequest): PromiseLike<TransportMakeRequestResponse> {
+export function makeCloudflareTransport(
+	options: CloudflareTransportOptions,
+): Transport {
+	function makeRequest(
+		request: TransportRequest,
+	): PromiseLike<TransportMakeRequestResponse> {
 		const requestOptions: RequestInit = {
 			body: request.body,
-			method: 'POST',
+			method: "POST",
 			headers: options.headers,
 			...options.fetchOptions,
 		};
@@ -93,13 +106,19 @@ export function makeCloudflareTransport(options: CloudflareTransportOptions): Tr
 				return {
 					statusCode: response.status,
 					headers: {
-						'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
-						'retry-after': response.headers.get('Retry-After'),
+						"x-sentry-rate-limits": response.headers.get(
+							"X-Sentry-Rate-Limits",
+						),
+						"retry-after": response.headers.get("Retry-After"),
 					},
 				};
 			});
 		});
 	}
 
-	return createTransport(options, makeRequest, new IsolatedPromiseBuffer(options.bufferSize));
+	return createTransport(
+		options,
+		makeRequest,
+		new IsolatedPromiseBuffer(options.bufferSize),
+	);
 }

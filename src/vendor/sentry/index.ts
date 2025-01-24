@@ -1,4 +1,7 @@
-import { EmailExportedHandler, ExportedHandler } from '@cloudflare/workers-types';
+import {
+	EmailExportedHandler,
+	ExportedHandler,
+} from "@cloudflare/workers-types";
 import {
 	captureException,
 	CloudflareClient,
@@ -11,10 +14,14 @@ import {
 	SEMANTIC_ATTRIBUTE_SENTRY_SOURCE,
 	startSpan,
 	withIsolationScope,
-} from '@sentry/cloudflare';
-import { getIntegrationsToSetup, initAndBind, stackParserFromStackParserOptions } from '@sentry/core';
-import { defaultStackParser } from './stacktrace';
-import { makeCloudflareTransport } from './transport';
+} from "@sentry/cloudflare";
+import {
+	getIntegrationsToSetup,
+	initAndBind,
+	stackParserFromStackParserOptions,
+} from "@sentry/core";
+import { defaultStackParser } from "./stacktrace";
+import { makeCloudflareTransport } from "./transport";
 
 type ExtractEnv<P> = P extends ExportedHandler<infer Env> ? Env : never;
 
@@ -25,22 +32,31 @@ function init(options: CloudflareOptions): CloudflareClient | undefined {
 
 	return initAndBind(CloudflareClient, {
 		...options,
-		stackParser: stackParserFromStackParserOptions(options.stackParser || defaultStackParser),
+		stackParser: stackParserFromStackParserOptions(
+			options.stackParser || defaultStackParser,
+		),
 		integrations: getIntegrationsToSetup(options),
 		transport: options.transport || makeCloudflareTransport,
 	}) as CloudflareClient;
 }
 
 function addCloudResourceContext(scope: Scope): void {
-	scope.setContext('cloud_resource', {
-		'cloud.provider': 'cloudflare',
+	scope.setContext("cloud_resource", {
+		"cloud.provider": "cloudflare",
 	});
 }
 
-export function withSentry<E extends ExportedHandler<any>>(optionsCallback: (env: ExtractEnv<E>) => CloudflareOptions, handler: E): E {
-	if ('email' in handler && typeof handler.email === 'function') {
+export function withSentry<E extends ExportedHandler<any>>(
+	optionsCallback: (env: ExtractEnv<E>) => CloudflareOptions,
+	handler: E,
+): E {
+	if ("email" in handler && typeof handler.email === "function") {
 		handler.email = new Proxy(handler.email, {
-			apply(target, thisArg, args: Parameters<EmailExportedHandler<ExtractEnv<E>>>) {
+			apply(
+				target,
+				thisArg,
+				args: Parameters<EmailExportedHandler<ExtractEnv<E>>>,
+			) {
 				const [event, env, context] = args;
 				return withIsolationScope((isolationScope) => {
 					const options = optionsCallback(env);
@@ -51,19 +67,23 @@ export function withSentry<E extends ExportedHandler<any>>(optionsCallback: (env
 
 					return startSpan(
 						{
-							op: 'other', // NOTE: following OTEL conventions
+							op: "other", // NOTE: following OTEL conventions
 							name: `Email route to ${event.to}`,
 							attributes: {
-								'faas.trigger': 'other',
-								[SEMANTIC_ATTRIBUTE_SENTRY_ORIGIN]: 'auto.faas.cloudflare',
-								[SEMANTIC_ATTRIBUTE_SENTRY_SOURCE]: 'custom',
+								"faas.trigger": "other",
+								[SEMANTIC_ATTRIBUTE_SENTRY_ORIGIN]: "auto.faas.cloudflare",
+								[SEMANTIC_ATTRIBUTE_SENTRY_SOURCE]: "custom",
 							},
 						},
 						async () => {
 							try {
-								return await (target.apply(thisArg, args) as ReturnType<typeof target>);
+								return await (target.apply(thisArg, args) as ReturnType<
+									typeof target
+								>);
 							} catch (e) {
-								captureException(e, { mechanism: { handled: false, type: 'cloudflare' } });
+								captureException(e, {
+									mechanism: { handled: false, type: "cloudflare" },
+								});
 								throw e;
 							} finally {
 								context.waitUntil(flush(2000));
