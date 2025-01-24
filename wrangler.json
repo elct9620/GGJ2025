@@ -12,6 +12,10 @@
 	"observability": {
 		"enabled": true
 	},
+	"route": {
+		"pattern": "atlan.world/*",
+		"zone_name": "atlan.world"
+	},
 	"upload_source_maps": true,
 	"version_metadata": {
 		"binding": "CF_VERSION_METADATA"
