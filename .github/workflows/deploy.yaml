@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Revision
+        id: revision
+        run: echo "value=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          preCommands: |
+            npm run tsc
+            npm run test
+          command: |
+            deploy --dry-run --outdir=dist --define GIT_COMMIT_SHA:"\"${{ steps.revision.outputs.value }}\""
+            deploy --define GIT_COMMIT_SHA:"\"${{ steps.revision.outputs.value }}\""
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "3.105.0"
