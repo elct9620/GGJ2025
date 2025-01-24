@@ -1,20 +1,22 @@
 {
-  "name": "global-game-jam-2025",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
-    "test": "vitest",
-    "cf-typegen": "wrangler types",
-    "tsc": "tsc"
-  },
-  "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.6.4",
-    "@cloudflare/workers-types": "^4.20250121.0",
-    "typescript": "^5.5.2",
-    "vitest": "2.1.8",
-    "wrangler": "^3.105.0"
-  }
+	"name": "global-game-jam-2025",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types",
+		"tsc": "tsc"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.6.4",
+		"@cloudflare/workers-types": "^4.20250121.0",
+		"prettier": "^3.4.2",
+		"prettier-plugin-organize-imports": "^4.1.0",
+		"typescript": "^5.5.2",
+		"vitest": "2.1.8",
+		"wrangler": "^3.105.0"
+	}
 }
