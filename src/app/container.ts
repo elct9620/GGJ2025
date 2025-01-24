@@ -1,4 +1,6 @@
 import { SESv2Client } from "@aws-sdk/client-sesv2";
+import { experimental_wrapLanguageModel as wrapLanguageModel } from "ai";
+import { createOpenAI } from "@ai-sdk/openai";
 import {
 	container,
 	DependencyContainer,
@@ -6,6 +8,10 @@ import {
 } from "tsyringe-neo";
 
 import { Config } from "./config";
+import { LlmBreadcrumb } from "./llm/middleware";
+
+export const OpenAi = Symbol("OpenAi");
+export const OpenAiModelId = "gpt-4o-mini";
 
 container.register(SESv2Client, {
 	useFactory: (c) => {
@@ -21,11 +27,30 @@ container.register(SESv2Client, {
 	},
 });
 
+container.register(OpenAi, {
+	useFactory: instanceCachingFactory((c) => {
+		const config = c.resolve<Config>(Config);
+
+		return wrapLanguageModel({
+			model: createOpenAI({
+				baseURL: config.openAiGateway,
+				apiKey: config.openAiApiKey,
+			})(OpenAiModelId),
+			middleware: LlmBreadcrumb,
+		});
+	}),
+});
+
 export function getContainer(env: Env): DependencyContainer {
 	const c = container.createChildContainer();
 
 	c.register(Config, {
-		useValue: new Config(env.AWS_ACCESS_KEY_ID, env.AWS_SECRET_ACCESS_KEY),
+		useValue: new Config(
+			env.AWS_ACCESS_KEY_ID,
+			env.AWS_SECRET_ACCESS_KEY,
+			env.OPENAI_GATEWAY,
+			env.OPENAI_API_KEY,
+		),
 	});
 
 	return c;

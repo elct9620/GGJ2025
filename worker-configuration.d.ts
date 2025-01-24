@@ -6,5 +6,6 @@ interface Env {
 	AWS_ACCESS_KEY_ID: string;
 	AWS_SECRET_ACCESS_KEY: string;
 	OPENAI_API_KEY: string;
+	OPENAI_GATEWAY: string;
 	CF_VERSION_METADATA: { id: string; tag: string };
 }
