@@ -48,7 +48,8 @@
 		"paths": {
 			"@app/*": ["src/app/*"],
 			"@controller/*": ["src/controller/*"],
-			"@presenter/*": ["src/presenter/*"]
+			"@presenter/*": ["src/presenter/*"],
+			"@usecase/*": ["src/usecase/*"]
 		}
 	},
 	"exclude": ["test"],
