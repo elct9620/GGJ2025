@@ -12,5 +12,8 @@ export default withSentry(
 		async fetch(request, env, ctx): Promise<Response> {
 			return new Response("Hello World!");
 		},
+		async email(message, env, ctx) {
+			return;
+		},
 	} satisfies ExportedHandler<Env>,
 );
