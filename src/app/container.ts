@@ -8,7 +8,7 @@ import {
 import { Config } from "./config";
 
 container.register(SESv2Client, {
-	useFactory: instanceCachingFactory((c) => {
+	useFactory: (c) => {
 		const config = c.resolve<Config>(Config);
 
 		return new SESv2Client({
@@ -18,7 +18,7 @@ container.register(SESv2Client, {
 				secretAccessKey: config.awsSecretAccessKey,
 			},
 		});
-	}),
+	},
 });
 
 export function getContainer(env: Env): DependencyContainer {
