@@ -1,9 +1,13 @@
-import { EmailPresenter } from "./interface";
+import { EmailPresenter, Agent } from "./interface";
 
 export class GuideUsecase {
-	constructor(private readonly presenter: EmailPresenter) {}
+	constructor(
+		private readonly presenter: EmailPresenter,
+		private readonly agent: Agent,
+	) {}
 
-	async execute() {
-		this.presenter.addText("This is game guide");
+	async execute(message: string): Promise<void> {
+		const reply = await this.agent.talk(message);
+		this.presenter.addText(reply);
 	}
 }
