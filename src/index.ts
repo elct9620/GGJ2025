@@ -1,6 +1,7 @@
 import "reflect-metadata";
 
 import { withSentry } from "./vendor/sentry";
+import { email } from "@app/email";
 
 export default withSentry(
 	(env) => ({
@@ -12,8 +13,6 @@ export default withSentry(
 		async fetch(request, env, ctx): Promise<Response> {
 			return new Response("Hello World!");
 		},
-		async email(message, env, ctx) {
-			return;
-		},
+		email,
 	} satisfies ExportedHandler<Env>,
 );
