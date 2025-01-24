@@ -20,6 +20,8 @@
 		"wrangler": "^3.105.0"
 	},
 	"dependencies": {
-		"@sentry/cloudflare": "^8.51.0"
+		"@aws-sdk/client-sesv2": "^3.734.0",
+		"@sentry/cloudflare": "^8.51.0",
+		"mimetext": "^3.0.27"
 	}
 }
