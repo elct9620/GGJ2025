@@ -47,7 +47,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@app/*": ["src/app/*"],
-			"@controller/*": ["src/controller/*"]
+			"@controller/*": ["src/controller/*"],
+			"@presenter/*": ["src/presenter/*"]
 		}
 	},
 	"exclude": ["test"],
