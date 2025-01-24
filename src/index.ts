@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import { withSentry } from "./vendor/sentry";
 
 export default withSentry(

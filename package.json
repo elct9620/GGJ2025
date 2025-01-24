@@ -22,6 +22,8 @@
 	"dependencies": {
 		"@aws-sdk/client-sesv2": "^3.734.0",
 		"@sentry/cloudflare": "^8.51.0",
-		"mimetext": "^3.0.27"
+		"mimetext": "^3.0.27",
+		"reflect-metadata": "^0.2.2",
+		"tsyringe-neo": "^5.1.0"
 	}
 }
