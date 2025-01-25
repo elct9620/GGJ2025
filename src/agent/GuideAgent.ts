@@ -19,7 +19,9 @@ export class GuideAgent {
 		const reply = await trackGenerateText("GuideAgent.talk", {
 			model: this.openai,
 			prompt,
-			system: Mustache.render(system, { config }),
+			system: Mustache.render(system, {
+				config: this.config,
+			}),
 		});
 
 		return reply.text;
