@@ -25,7 +25,9 @@ export class GuideUsecase {
 		}
 
 		const reply = await this.agent.talk(message);
-
 		this.presenter.addText(reply);
+
+		city.refresh();
+		await this.cityRepository.save(city);
 	}
 }

@@ -1,5 +1,6 @@
 export enum CityEventType {
 	CityInitializedEvent = "CityInitializedEvent",
+	RefreshEvent = "RefreshEvent",
 }
 
 abstract class Event {
@@ -20,4 +21,10 @@ export class CityInitializedEvent extends Event {
 	}
 }
 
-export type CityEvent = CityInitializedEvent;
+export class RefreshEvent extends Event {
+	constructor(payload: Record<string, any>) {
+		super(CityEventType.RefreshEvent, payload);
+	}
+}
+
+export type CityEvent = CityInitializedEvent | RefreshEvent;

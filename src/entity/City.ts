@@ -1,5 +1,10 @@
 import { handle } from "hono/cloudflare-pages";
-import { CityEvent, CityEventType, CityInitializedEvent } from "./CityEvent";
+import {
+	CityEvent,
+	CityEventType,
+	CityInitializedEvent,
+	RefreshEvent,
+} from "./CityEvent";
 
 type EventHandler<T extends CityEvent> = (event: T) => void;
 
@@ -12,6 +17,7 @@ export class City {
 	private _events: CityEvent[] = [];
 	private _life = City.MAX_LIFE;
 	private _damageRate = 0;
+	private updatedAt?: Date;
 
 	constructor(public readonly id: string) {
 		this.apply(new CityInitializedEvent({}));
@@ -26,6 +32,10 @@ export class City {
 
 		handler.apply(this, [event]);
 		this._events.push(event);
+	}
+
+	public refresh(): void {
+		this.apply(new RefreshEvent({}));
 	}
 
 	public get damage(): number {
@@ -54,5 +64,12 @@ export class City {
 	private onCityInitializedEvent(event: CityInitializedEvent): void {
 		this._life = City.MAX_LIFE;
 		this._damageRate = 1;
+		this.updatedAt = event.createdAt;
+	}
+
+	private onRefreshEvent(event: RefreshEvent): void {
+		const deltaTime = event.createdAt.getTime() - this.updatedAt!.getTime();
+		this._life -= deltaTime * this._damageRate;
+		this.updatedAt = event.createdAt;
 	}
 }

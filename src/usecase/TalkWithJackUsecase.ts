@@ -17,5 +17,8 @@ export class TaklWithJackUsecase {
 
 		const reply = await this.npc.talk(city, message);
 		this.presenter.addText(reply);
+
+		city.refresh();
+		await this.cityRepository.save(city);
 	}
 }
