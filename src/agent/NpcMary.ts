@@ -29,6 +29,11 @@ export class NpcMary {
 			system: Mustache.render(system, {
 				config: this.config,
 			}),
+			maxSteps: 15,
+			tools: {
+				getFavorability: canGetFavorability(NpcName.Mary, city),
+				changeFavorability: canChangeFavorability(NpcName.Mary, city),
+			},
 		});
 
 		return reply.text;
