@@ -9,6 +9,10 @@ import { Config } from "@app/config";
 import system from "./prompts/jack.md";
 import { City } from "@entity/City";
 import { NpcName } from "@entity/Npc";
+import {
+	canChangeFavorability,
+	canGetFavorability,
+} from "./tools/Favorability";
 
 @injectable()
 export class NpcJack {
@@ -27,29 +31,8 @@ export class NpcJack {
 			}),
 			maxSteps: 15,
 			tools: {
-				getFavorability: tool({
-					description: "Get the favorability of the NPC",
-					parameters: z.object({}),
-					execute: async () => {
-						const favorability = city.findNpc(NpcName.Jack)?.favorability;
-
-						return { favorability };
-					},
-				}),
-				changeFavorability: tool({
-					description:
-						"According to the interaction with the NPC change the favorability",
-					parameters: z.object({
-						change: z.number().int().min(-10).max(10),
-					}),
-					execute: async ({ change }) => {
-						const prevFavorability = city.findNpc(NpcName.Jack)?.favorability;
-						city.changeFavorability(NpcName.Jack, change);
-						const newFavorability = city.findNpc(NpcName.Jack)?.favorability;
-
-						return { change, prevFavorability, newFavorability };
-					},
-				}),
+				getFavorability: canGetFavorability(NpcName.Jack, city),
+				changeFavorability: canChangeFavorability(NpcName.Jack, city),
 			},
 		});
 
