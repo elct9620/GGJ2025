@@ -24,7 +24,7 @@ export class City {
 			throw new Error(`Missing event handler: ${String(handlerName)}`);
 		}
 
-		handler(event);
+		handler.apply(this, [event]);
 		this._events.push(event);
 	}
 
