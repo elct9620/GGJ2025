@@ -28,6 +28,8 @@ export class NpcJack {
 			prompt,
 			system: Mustache.render(system, {
 				config: this.config,
+				damageProgress: city.damage,
+				damageRate: city.damageRate,
 			}),
 			maxSteps: 15,
 			tools: {
