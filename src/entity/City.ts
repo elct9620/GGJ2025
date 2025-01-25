@@ -4,6 +4,8 @@ import { CityEvent, CityEventType, CityInitializedEvent } from "./CityEvent";
 type EventHandler<T extends CityEvent> = (event: T) => void;
 
 export class City {
+	static readonly MAX_DAMAGE = 100;
+
 	private _events: CityEvent[] = [];
 
 	constructor(public readonly id: string) {
@@ -19,6 +21,14 @@ export class City {
 
 		handler(event);
 		this._events.push(event);
+	}
+
+	public get damage(): number {
+		return 0;
+	}
+
+	public get isDestroyed(): boolean {
+		return this.damage >= City.MAX_DAMAGE;
 	}
 
 	public get events(): CityEvent[] {

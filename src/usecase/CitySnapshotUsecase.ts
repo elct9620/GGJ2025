@@ -2,6 +2,8 @@ import { CityRepository } from "./interface";
 
 export type CitySnapshot = {
 	id: string;
+	damage: number;
+	isDestroyed: boolean;
 };
 
 export class CitySnapshotUsecase {
@@ -15,6 +17,8 @@ export class CitySnapshotUsecase {
 
 		return {
 			id: city.id,
+			damage: city.damage,
+			isDestroyed: city.isDestroyed,
 		};
 	}
 }
