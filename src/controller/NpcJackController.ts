@@ -4,7 +4,7 @@ import { EmailController, EmailParams } from "./EmailController";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
 import { KvCityRepository } from "@repository/KvCityRepository";
-import { TaklWithJackUsecase } from "@usecase/TalkWithJackUsecase";
+import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
 import { NpcJack } from "@agent/NpcJack";
 
 @injectable()
@@ -32,7 +32,7 @@ export class NpcJackController extends EmailController {
 			references: params.references,
 			subject: params.subject,
 		});
-		const usecase = new TaklWithJackUsecase(
+		const usecase = new TaklWithNpcUsecase(
 			presenter,
 			this.cityRepository,
 			this.npc,
