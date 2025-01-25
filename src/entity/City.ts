@@ -22,9 +22,13 @@ export class City {
 	private updatedAt?: Date;
 	private _npcs: Npc[] = [];
 
-	constructor(public readonly id: string) {
-		this.apply(new CityInitializedEvent({}));
+	static create(id: string): City {
+		const city = new City(id);
+		city.apply(new CityInitializedEvent({}));
+		return city;
 	}
+
+	constructor(public readonly id: string) {}
 
 	public apply(event: CityEvent): void {
 		const handlerName = `on${event.type}` as keyof this;

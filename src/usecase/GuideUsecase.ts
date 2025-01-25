@@ -17,7 +17,7 @@ export class GuideUsecase {
 	async execute(userId: string, message: string): Promise<void> {
 		const city = await this.cityRepository.find(userId);
 		if (!city) {
-			await this.cityRepository.save(new City(userId));
+			await this.cityRepository.save(City.create(userId));
 
 			const welcomeMessage = this.welcomeMessageBuilder.build(userId);
 			this.presenter.addText(welcomeMessage);
