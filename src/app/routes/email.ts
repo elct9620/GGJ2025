@@ -1,3 +1,4 @@
+import { DestroyController } from "@controller/DestroyController";
 import { NewGameController } from "@controller/NewGameController";
 
 interface Controller {
@@ -10,4 +11,5 @@ type Routes = {
 
 export const routes: Routes = {
 	new: NewGameController,
+	destroy: DestroyController,
 };
