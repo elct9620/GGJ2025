@@ -7,6 +7,7 @@ import {
 	CityEventType,
 	CityInitializedEvent,
 } from "@entity/CityEvent";
+import { addBreadcrumb } from "@sentry/cloudflare";
 
 type EventSchema = {
 	type: string;
@@ -44,6 +45,16 @@ export class KvCityRepository {
 	}
 
 	async save(city: City): Promise<void> {
+		addBreadcrumb({
+			type: "debug",
+			category: "game.city",
+			data: {
+				userId: city.id,
+				damage: city.damage,
+				damageRate: city.damageRate,
+			},
+		});
+
 		await this.kv.put(
 			`${KvCityRepository.Prefix}:${city.id}`,
 			JSON.stringify({
