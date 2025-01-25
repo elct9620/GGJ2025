@@ -10,6 +10,7 @@ import {
 } from "@entity/CityEvent";
 import { addBreadcrumb } from "@sentry/cloudflare";
 import { Config } from "@app/config";
+import { NpcName } from "@entity/Npc";
 
 type EventSchema = {
 	type: string;
@@ -57,6 +58,10 @@ export class KvCityRepository {
 				userId: city.id,
 				damage: city.damage,
 				damageRate: city.damageRate,
+				npcStatus: Object.keys(NpcName).map((name) => ({
+					name,
+					favorability: city.findNpc(name as NpcName)?.favorability,
+				})),
 			},
 		});
 
