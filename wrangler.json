@@ -33,6 +33,11 @@
 			"type": "Text",
 			"globs": ["**/*.md"],
 			"fallthrough": true
+		},
+		{
+			"type": "Text",
+			"globs": ["**/*.txt"],
+			"fallthrough": true
 		}
 	]
 	/**

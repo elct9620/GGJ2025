@@ -1,9 +1,15 @@
 import { City } from "@entity/City";
-import { EmailPresenter, CityRepository, Agent } from "./interface";
+import {
+	EmailPresenter,
+	CityRepository,
+	Agent,
+	WelcomeMessageBuilder,
+} from "./interface";
 
 export class GuideUsecase {
 	constructor(
 		private readonly presenter: EmailPresenter,
+		private readonly welcomeMessageBuilder: WelcomeMessageBuilder,
 		private readonly agent: Agent,
 		private readonly cityRepository: CityRepository,
 	) {}
@@ -12,7 +18,9 @@ export class GuideUsecase {
 		const city = await this.cityRepository.find(userId);
 		if (!city) {
 			await this.cityRepository.save(new City(userId));
-			this.presenter.addText("Welcome to the city!");
+
+			const welcomeMessage = this.welcomeMessageBuilder.build(userId);
+			this.presenter.addText(welcomeMessage);
 			return;
 		}
 

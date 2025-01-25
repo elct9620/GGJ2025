@@ -12,3 +12,7 @@ export interface CityRepository {
 	find(userId: string): Promise<City | null>;
 	save(city: City): Promise<void>;
 }
+
+export interface WelcomeMessageBuilder {
+	build(userId: string): string;
+}
