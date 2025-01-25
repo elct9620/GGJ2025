@@ -29,4 +29,8 @@ export class KvCityRepository {
 			JSON.stringify({}),
 		);
 	}
+
+	async destroy(userId: string): Promise<void> {
+		await this.kv.delete(`${KvCityRepository.Prefix}:${userId}`);
+	}
 }

@@ -11,6 +11,7 @@ export interface Agent {
 export interface CityRepository {
 	find(userId: string): Promise<City | null>;
 	save(city: City): Promise<void>;
+	destroy(userId: string): Promise<void>;
 }
 
 export interface WelcomeMessageBuilder {
