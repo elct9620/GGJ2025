@@ -1,9 +1,19 @@
 import { Hono } from "hono";
+import { cache } from "hono/cache";
+import { compress } from "hono/compress";
+import { etag } from "hono/etag";
 
 import { getContainer } from "./container";
 import { CityViewController } from "@controller/CityViewController";
 
 const app = new Hono<{ Bindings: Env }>();
+app.use(etag());
+app.use(
+	cache({
+		cacheName: "atlan",
+		cacheControl: "public, max-age=3600",
+	}),
+);
 
 app.get("/city/:id", async (c) => {
 	const container = getContainer(c.env);
