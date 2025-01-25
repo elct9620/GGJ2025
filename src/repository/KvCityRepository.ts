@@ -64,6 +64,9 @@ export class KvCityRepository {
 					createdAt: event.createdAt.toISOString(),
 				})),
 			}),
+			{
+				expirationTtl: 60 * 60, // 1 hour
+			},
 		);
 	}
 
