@@ -45,35 +45,35 @@ const people = css`
 	right: 0%;
 `;
 
-export const City: FC<CitySnapshot> = ({ id }) => {
+export const City: FC<CitySnapshot> = ({ id, damage }) => {
 	return (
 		<Layout>
 			<div class={cx(container, pRelative)}>
 				<img src="/bg.png" alt="baseCity" />
 				<Building
 					className={cx(pAbsolute, shell)}
-					src="/shell_0.png"
 					title="shell"
+					damage={damage}
 				/>
 				<Building
 					className={cx(pAbsolute, factory)}
-					src="/factory_0.png"
 					title="factory"
+					damage={damage}
 				/>
 				<Building
 					className={cx(pAbsolute, hospital)}
-					src="/hospital_0.png"
 					title="hospital"
+					damage={damage}
 				/>
 				<Building
 					className={cx(pAbsolute, office)}
-					src="/office_0.png"
 					title="office"
+					damage={damage}
 				/>
 				<Building
 					className={cx(pAbsolute, people)}
-					src="/people_0.png"
 					title="people"
+					damage={damage}
 				/>
 			</div>
 		</Layout>
