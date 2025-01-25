@@ -21,7 +21,7 @@ export class Npc {
 			return;
 		}
 
-		const newValue = (this._favorability = value);
+		const newValue = this._favorability + value;
 		this._favorability = Math.min(
 			Math.max(newValue, Npc.MIN_FAVORABILITY),
 			Npc.MAX_FAVORABILITY,
