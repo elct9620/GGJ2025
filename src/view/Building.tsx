@@ -1,7 +1,7 @@
 /** @jsxImportSource hono/jsx */
 
 import { FC } from "hono/jsx";
-import { css, cx } from "hono/css";
+import { css } from "hono/css";
 
 const caculateDamaged = function (damage: number) {
 	if (damage < 25) return "_0.png";
