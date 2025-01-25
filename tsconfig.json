@@ -6,8 +6,6 @@
 		"target": "es2021",
 		/* Specify a set of bundled library declaration files that describe the target runtime environment. */
 		"lib": ["es2021"],
-		/* Specify what JSX code is generated. */
-		"jsx": "react-jsx",
 
 		/* Specify what module code is generated. */
 		"module": "es2022",
@@ -42,6 +40,10 @@
 		/* Dependency Injection */
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
+
+		/* JSX */
+		"jsx": "react-jsx",
+		"jsxImportSource": "hono/jsx",
 
 		/* Alias */
 		"baseUrl": ".",

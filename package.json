@@ -31,6 +31,7 @@
 		"@types/mustache": "^4.2.5",
 		"ai": "^4.1.4",
 		"email-reply-parser": "^1.9.2",
+		"hono": "^4.6.18",
 		"mimetext": "^3.0.27",
 		"mustache": "^4.2.0",
 		"postal-mime": "^2.4.3",
