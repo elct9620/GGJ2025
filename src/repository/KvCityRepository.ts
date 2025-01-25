@@ -8,6 +8,7 @@ import {
 	CityInitializedEvent,
 	FavorabilityChangedEvent,
 	RefreshEvent,
+	ValveClosedEvent,
 } from "@entity/CityEvent";
 import { addBreadcrumb } from "@sentry/cloudflare";
 import { Config } from "@app/config";
@@ -99,6 +100,8 @@ export class KvCityRepository {
 					event.payload as { npcName: NpcName; change: number },
 					new Date(event.createdAt),
 				);
+			case CityEventType.ValveClosedEvent:
+				return new ValveClosedEvent(event.payload, new Date(event.createdAt));
 			default:
 				throw new Error(`Unknown event type: ${event.type}`);
 		}
