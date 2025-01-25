@@ -32,6 +32,7 @@ export class DestroyController extends EmailController {
 		});
 
 		const usecase = new DestroyUsecase(presenter, this.cityRepository);
+		await usecase.execute(params.userId);
 		await presenter.render();
 	}
 }
