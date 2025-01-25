@@ -14,7 +14,7 @@ const container = css`
 	transform: scale(0.65) translateX(-28%) translateY(-27%);
 `;
 
-export const City: FC<CitySnapshot> = ({ id, damage }) => {
+export const City: FC<CitySnapshot> = ({ id, damage, npcStatus }) => {
 	return (
 		<Layout>
 			<div class={container}>
@@ -24,7 +24,12 @@ export const City: FC<CitySnapshot> = ({ id, damage }) => {
 				<Building title="hospital" bottom="46%" left="54%" damage={damage} />
 				<Npc title="doctor" bottom="45%" left="42%" />
 				<Building title="office" bottom="35%" left="0%" damage={damage} />
-				<Npc title="engineer" bottom="33%" left="15%" />
+				<Npc
+					title="engineer"
+					bottom="33%"
+					left="15%"
+					favorability={npcStatus.Jack.favorability}
+				/>
 				<Building title="people" bottom="34%" left="60.5%" damage={damage} />
 				<Npc title="politician" bottom="33%" left="58%" />
 			</div>
