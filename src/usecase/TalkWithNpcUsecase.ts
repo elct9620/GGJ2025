@@ -1,6 +1,6 @@
 import { CityRepository, EmailPresenter, Npc } from "./interface";
 
-export class TaklWithJackUsecase {
+export class TaklWithNpcUsecase {
 	constructor(
 		private readonly presenter: EmailPresenter,
 		private readonly cityRepository: CityRepository,

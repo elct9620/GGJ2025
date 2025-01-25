@@ -4,17 +4,14 @@ import { EmailController, EmailParams } from "./EmailController";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
 import { KvCityRepository } from "@repository/KvCityRepository";
-import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
-import { NpcJack } from "@agent/NpcJack";
 
 @injectable()
-export class NpcJackController extends EmailController {
-	public static readonly SenderName: string = "Jack";
+export class NpcMattController extends EmailController {
+	public static readonly SenderName: string = "Matt";
 
 	constructor(
 		@inject(SESv2Client) private readonly ses: SESv2Client,
 		@inject(KvCityRepository) private readonly cityRepository: KvCityRepository,
-		@inject(NpcJack) private readonly npc: NpcJack,
 	) {
 		super();
 	}
@@ -22,7 +19,7 @@ export class NpcJackController extends EmailController {
 	protected async onMessage(params: EmailParams): Promise<void> {
 		var sender = params.to;
 		if (!sender.includes("<")) {
-			sender = `${NpcJackController.SenderName} <${sender}>`;
+			sender = `${NpcMattController.SenderName} <${sender}>`;
 		}
 
 		const presenter = new SesEmailPresenter(this.ses, {
@@ -32,13 +29,8 @@ export class NpcJackController extends EmailController {
 			references: params.references,
 			subject: params.subject,
 		});
-		const usecase = new TaklWithNpcUsecase(
-			presenter,
-			this.cityRepository,
-			this.npc,
-		);
 
-		await usecase.execute(params.userId, params.body);
+		presenter.addText("Hello, I'm Matt.");
 		await presenter.render();
 	}
 }
