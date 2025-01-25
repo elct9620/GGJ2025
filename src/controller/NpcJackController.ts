@@ -3,8 +3,8 @@ import { inject, injectable } from "tsyringe-neo";
 import { EmailController, EmailParams } from "./EmailController";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
-import { DestroyUsecase } from "@usecase/DestroyUsecase";
 import { KvCityRepository } from "@repository/KvCityRepository";
+import { TaklWithJackUsecase } from "@usecase/TalkWithJackUsecase";
 
 @injectable()
 export class NpcJackController extends EmailController {
@@ -30,8 +30,9 @@ export class NpcJackController extends EmailController {
 			references: params.references,
 			subject: params.subject,
 		});
+		const usecase = new TaklWithJackUsecase(presenter, this.cityRepository);
 
-		presenter.addText("Hello, I'm Jack.");
+		await usecase.execute(params.userId, params.body);
 		await presenter.render();
 	}
 }
