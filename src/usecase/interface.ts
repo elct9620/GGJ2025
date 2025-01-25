@@ -9,5 +9,5 @@ export interface Agent {
 }
 
 export interface CityRepository {
-	find(userId: string): Promise<City>;
+	find(userId: string): Promise<City | null>;
 }

@@ -11,13 +11,13 @@ export class KvCityRepository {
 
 	constructor(@inject(CloudFlareKv) private readonly kv: KVNamespace) {}
 
-	async find(userId: string): Promise<City> {
+	async find(userId: string): Promise<City | null> {
 		const data = (await this.kv.get(
 			`${KvCityRepository.Prefix}:${userId}`,
 			"json",
 		)) as CitySchema;
 		if (!data) {
-			return new City(userId);
+			return null;
 		}
 
 		return new City(userId);

@@ -9,6 +9,11 @@ export class GuideUsecase {
 
 	async execute(userId: string, message: string): Promise<void> {
 		const city = await this.cityRepository.find(userId);
+		if (!city) {
+			this.presenter.addText("Your find a new city");
+			return;
+		}
+
 		const reply = await this.agent.talk(message);
 
 		this.presenter.addText(reply);
