@@ -9,7 +9,9 @@ import { Npc } from "./Npc";
 import { css, cx } from "hono/css";
 
 const responsive = css`
-	transform: scale(0.65) translateX(-28%) translateY(-27%);
+	@media only screen and (max-width: 768px) {
+		transform: scale(0.65) translateX(-28%) translateY(-27%);
+	}
 `;
 
 const pRelative = css`
