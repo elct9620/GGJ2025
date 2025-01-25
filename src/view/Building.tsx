@@ -4,10 +4,9 @@ import { FC } from "hono/jsx";
 import { css } from "hono/css";
 
 const caculateDamaged = function (damage: number) {
-	if (damage < 25) return "_0.png";
-	if (damage < 50) return "_1.png";
-	if (damage < 75) return "_2.png";
-	return "_3.png";
+	if (damage < 30) return "_0.png";
+	if (damage < 70) return "_1.png";
+	return "_2.png";
 };
 
 export const Building: FC = (prop) => {
