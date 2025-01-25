@@ -17,7 +17,17 @@
 
 # 當前狀態
 
+{{#isEnded}}
+{{#isDestroyed}}
+城市已經被海水淹沒，遊戲結束。
+{{/isDestroyed}}
+{{^isDestroyed}}
+損壞率為 {{ damageRate }} 我們阻止了海水淹沒城市，遊戲結束。
+{{/isDestroyed}}
+{{/isEnded}}
+{{^isEnded}}
 目前城市的損壞度是 {{ damageProgress }}，損壞率是 {{ damageRate }}。
+{{/isEnded}}
 
 # 角色設定
 
