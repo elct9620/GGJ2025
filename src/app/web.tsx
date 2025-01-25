@@ -12,6 +12,10 @@ app.get("/city/:id", async (c) => {
 	const id = c.req.param("id");
 	const jsx = await controller.handle(id);
 
+	if (!jsx) {
+		return c.text("City not found", 404);
+	}
+
 	return c.html(jsx);
 });
 
