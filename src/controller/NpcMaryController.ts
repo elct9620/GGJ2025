@@ -4,6 +4,8 @@ import { EmailController, EmailParams } from "./EmailController";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
 import { KvCityRepository } from "@repository/KvCityRepository";
+import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
+import { NpcMary } from "@agent/NpcMary";
 
 @injectable()
 export class NpcMaryController extends EmailController {
@@ -12,6 +14,7 @@ export class NpcMaryController extends EmailController {
 	constructor(
 		@inject(SESv2Client) private readonly ses: SESv2Client,
 		@inject(KvCityRepository) private readonly cityRepository: KvCityRepository,
+		@inject(NpcMary) private readonly npc: NpcMary,
 	) {
 		super();
 	}
@@ -30,7 +33,13 @@ export class NpcMaryController extends EmailController {
 			subject: params.subject,
 		});
 
-		presenter.addText("Hello, I'm Mary.");
+		const usecase = new TaklWithNpcUsecase(
+			presenter,
+			this.cityRepository,
+			this.npc,
+		);
+
+		await usecase.execute(params.userId, params.body);
 		await presenter.render();
 	}
 }
