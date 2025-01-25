@@ -5,6 +5,7 @@ import { FC } from "hono/jsx";
 import { type CitySnapshot } from "@usecase/CitySnapshotUsecase";
 import { Layout } from "./Layout";
 import { Building } from "./Building";
+import { Npc } from "./Npc";
 import { css, cx } from "hono/css";
 
 const responsive = css`
@@ -49,6 +50,21 @@ const people = css`
 	right: 0%;
 `;
 
+const doctor = css`
+	left: 42%;
+	top: 40%;
+`;
+
+const engineer = css`
+	left: 15%;
+	bottom: 33%;
+`;
+
+const politician = css`
+	right: 18%;
+	bottom: 33%;
+`;
+
 export const City: FC<CitySnapshot> = ({ id, damage }) => {
 	return (
 		<Layout>
@@ -69,16 +85,19 @@ export const City: FC<CitySnapshot> = ({ id, damage }) => {
 					title="hospital"
 					damage={damage}
 				/>
+				<Npc className={cx(pAbsolute, doctor)} title="doctor" />
 				<Building
 					className={cx(pAbsolute, office)}
 					title="office"
 					damage={damage}
 				/>
+				<Npc className={cx(pAbsolute, engineer)} title="engineer" />
 				<Building
 					className={cx(pAbsolute, people)}
 					title="people"
 					damage={damage}
 				/>
+				<Npc className={cx(pAbsolute, politician)} title="politician" />
 			</div>
 		</Layout>
 	);

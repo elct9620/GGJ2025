@@ -11,12 +11,8 @@ const caculateDamaged = function (damage: number) {
 
 export const Building: FC = ({ className, title, damage }) => {
 	return (
-		<div>
-			<img
-				class={className}
-				src={"/" + title + caculateDamaged(damage)}
-				alt={title}
-			/>
+		<div class={className}>
+			<img src={"/" + title + caculateDamaged(damage)} alt={title} />
 		</div>
 	);
 };
