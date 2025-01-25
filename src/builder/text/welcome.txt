@@ -1,4 +1,4 @@
 你發現了一個海底城市！
 
 可以透過這個連結看到近況，但這並不是即時的，所以請小心。
-https://{{ config.domain }}/city/{{ id }}
+https://{{ config.domain }}/city/{{ userId }}
