@@ -55,7 +55,8 @@
 			"@agent/*": ["src/agent/*"],
 			"@entity/*": ["src/entity/*"],
 			"@repository/*": ["src/repository/*"],
-			"@builder/*": ["src/builder/*"]
+			"@builder/*": ["src/builder/*"],
+			"@view/*": ["src/view/*"]
 		}
 	},
 	"exclude": ["test"],

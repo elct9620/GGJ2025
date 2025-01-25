@@ -1,9 +1,11 @@
 /** @jsxImportSource hono/jsx */
 
-import { KvCityRepository } from "@repository/KvCityRepository";
-import { CitySnapshotUsecase } from "@usecase/CitySnapshotUsecase";
 import { inject, injectable } from "tsyringe-neo";
 import { HtmlEscapedString } from "hono/utils/html";
+
+import { KvCityRepository } from "@repository/KvCityRepository";
+import { CitySnapshotUsecase } from "@usecase/CitySnapshotUsecase";
+import { City } from "@view/City";
 
 @injectable()
 export class CityViewController {
@@ -16,9 +18,9 @@ export class CityViewController {
 		const snapshot = await usecase.execute(id);
 
 		if (!snapshot) {
-			return <div>City not found</div>;
+			return null;
 		}
 
-		return <div>CityId - {snapshot.id}</div>;
+		return <City {...snapshot} />;
 	}
 }

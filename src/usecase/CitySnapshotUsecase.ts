@@ -1,6 +1,6 @@
 import { CityRepository } from "./interface";
 
-type CitySnapshot = {
+export type CitySnapshot = {
 	id: string;
 };
 
