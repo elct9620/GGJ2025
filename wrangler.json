@@ -28,6 +28,9 @@
 	"kv_namespaces": [
 		{ "binding": "STORE", "id": "11946148990c4657b82d8a71f726feee" }
 	],
+	"assets": {
+		"directory": "./assets/"
+	},
 	"rules": [
 		{
 			"type": "Text",
