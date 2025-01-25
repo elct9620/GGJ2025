@@ -50,7 +50,9 @@
 			"@controller/*": ["src/controller/*"],
 			"@presenter/*": ["src/presenter/*"],
 			"@usecase/*": ["src/usecase/*"],
-			"@agent/*": ["src/agent/*"]
+			"@agent/*": ["src/agent/*"],
+			"@entity/*": ["src/entity/*"],
+			"@repository/*": ["src/repository/*"]
 		}
 	},
 	"exclude": ["test"],

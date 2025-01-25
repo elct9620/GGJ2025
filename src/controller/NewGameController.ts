@@ -5,6 +5,7 @@ import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { GuideUsecase } from "@usecase/GuideUsecase";
 import { GuideAgent } from "@agent/GuideAgent";
+import { KvCityRepository } from "@repository/KvCityRepository";
 
 @injectable()
 export class NewGameController extends EmailController {
@@ -13,6 +14,7 @@ export class NewGameController extends EmailController {
 	constructor(
 		@inject(SESv2Client) private readonly ses: SESv2Client,
 		@inject(GuideAgent) private readonly agent: GuideAgent,
+		@inject(KvCityRepository) private readonly cityRepository: KvCityRepository,
 	) {
 		super();
 	}
@@ -30,9 +32,13 @@ export class NewGameController extends EmailController {
 			references: params.references,
 			subject: params.subject,
 		});
-		const usecase = new GuideUsecase(presenter, this.agent);
+		const usecase = new GuideUsecase(
+			presenter,
+			this.agent,
+			this.cityRepository,
+		);
 
-		await usecase.execute(params.body);
+		await usecase.execute(params.userId, params.body);
 		await presenter.render();
 	}
 }

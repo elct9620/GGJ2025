@@ -12,6 +12,7 @@ import { LlmBreadcrumb } from "./llm/middleware";
 
 export const OpenAi = Symbol("OpenAi");
 export const OpenAiModelId = "gpt-4o-mini";
+export const CloudFlareKv = Symbol("CloudFlareKv");
 
 container.register(SESv2Client, {
 	useFactory: (c) => {
@@ -52,6 +53,10 @@ export function getContainer(env: Env): DependencyContainer {
 			env.OPENAI_API_KEY,
 			env.DOMAIN,
 		),
+	});
+
+	c.register(CloudFlareKv, {
+		useValue: env.STORE,
 	});
 
 	return c;
