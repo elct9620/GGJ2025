@@ -13,6 +13,7 @@ import {
 	canChangeFavorability,
 	canGetFavorability,
 } from "./tools/Favorability";
+import { canCloseValve } from "./tools/Valve";
 
 @injectable()
 export class NpcJack {
@@ -37,6 +38,7 @@ export class NpcJack {
 			tools: {
 				getFavorability: canGetFavorability(NpcName.Jack, city),
 				changeFavorability: canChangeFavorability(NpcName.Jack, city),
+				closeValve: canCloseValve(city),
 			},
 		});
 
