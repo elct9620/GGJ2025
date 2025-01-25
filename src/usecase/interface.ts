@@ -8,6 +8,10 @@ export interface Agent {
 	talk(prompt: string): Promise<string>;
 }
 
+export interface Npc {
+	talk(city: City, prompt: string): Promise<string>;
+}
+
 export interface CityRepository {
 	find(userId: string): Promise<City | null>;
 	save(city: City): Promise<void>;
