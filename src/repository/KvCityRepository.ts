@@ -52,6 +52,36 @@ export class KvCityRepository {
 		return city;
 	}
 
+	async findSnapshot(userId: string): Promise<City | null> {
+		const data = (await this.kv.get(
+			`${KvCityRepository.Prefix}:${userId}`,
+			"json",
+		)) as CitySchema;
+		if (!data) {
+			return null;
+		}
+
+		const city = new City(userId);
+		const events = data.events || [];
+
+		const now = new Date();
+		const visibleTime =
+			now.getTime() - this.config.snapshotLatencyInSeconds * 1000;
+
+		events.forEach((event) => {
+			const rebuildedEvent = this.rebuildEvent(event);
+			const isVisible = rebuildedEvent.createdAt.getTime() <= visibleTime;
+			const isInitialized =
+				rebuildedEvent.type === CityEventType.CityInitializedEvent;
+
+			if (isInitialized || isVisible) {
+				city.apply(rebuildedEvent);
+			}
+		});
+
+		return city;
+	}
+
 	async save(city: City): Promise<void> {
 		addBreadcrumb({
 			type: "debug",

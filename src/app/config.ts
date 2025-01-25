@@ -6,5 +6,6 @@ export class Config {
 		public readonly openAiApiKey: string,
 		public readonly domain: string,
 		public readonly maxRetentionInSeconds: number,
+		public readonly snapshotLatencyInSeconds: number,
 	) {}
 }

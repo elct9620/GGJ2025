@@ -14,6 +14,7 @@ export interface Npc {
 
 export interface CityRepository {
 	find(userId: string): Promise<City | null>;
+	findSnapshot(userId: string): Promise<City | null>;
 	save(city: City): Promise<void>;
 	destroy(userId: string): Promise<void>;
 }

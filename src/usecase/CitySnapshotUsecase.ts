@@ -15,7 +15,7 @@ export class CitySnapshotUsecase {
 	constructor(private readonly cityRepository: CityRepository) {}
 
 	async execute(id: string): Promise<CitySnapshot | null> {
-		const city = await this.cityRepository.find(id);
+		const city = await this.cityRepository.findSnapshot(id);
 		if (!city) {
 			return null;
 		}
