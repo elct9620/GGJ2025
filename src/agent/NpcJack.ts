@@ -31,7 +31,7 @@ export class NpcJack {
 				damageProgress: city.damage,
 				damageRate: city.damageRate,
 				isEnded: city.isEnded,
-				isDestoryed: city.isDestroyed,
+				isDestroyed: city.isDestroyed,
 			}),
 			maxSteps: 15,
 			tools: {
