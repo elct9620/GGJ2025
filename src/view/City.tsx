@@ -14,11 +14,17 @@ const container = css`
 	transform: scale(0.65) translateX(-28%) translateY(-27%);
 `;
 
+const caculateDamaged = function (damage: number) {
+	if (damage < 30) return "_0.png";
+	if (damage < 70) return "_1.png";
+	return "_2.png";
+};
+
 export const City: FC<CitySnapshot> = ({ id, damage, npcStatus }) => {
 	return (
 		<Layout>
 			<div class={container}>
-				<img src="/bg.png" alt="baseCity" />
+				<img src={"/bg" + caculateDamaged(damage)} alt="baseCity" />
 				<Building title="shell" bottom="33%" left="40%" damage={damage} />
 				<Building title="factory" bottom="46%" left="7%" damage={damage} />
 				<Building title="hospital" bottom="46%" left="54%" damage={damage} />
