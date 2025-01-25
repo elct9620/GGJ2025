@@ -6,6 +6,7 @@ import {
 	CityEvent,
 	CityEventType,
 	CityInitializedEvent,
+	RefreshEvent,
 } from "@entity/CityEvent";
 import { addBreadcrumb } from "@sentry/cloudflare";
 
@@ -77,7 +78,12 @@ export class KvCityRepository {
 	private rebuildEvent(event: EventSchema): CityEvent {
 		switch (event.type) {
 			case CityEventType.CityInitializedEvent:
-				return new CityInitializedEvent(event.payload);
+				return new CityInitializedEvent(
+					event.payload,
+					new Date(event.createdAt),
+				);
+			case CityEventType.RefreshEvent:
+				return new RefreshEvent(event.payload, new Date(event.createdAt));
 			default:
 				throw new Error(`Unknown event type: ${event.type}`);
 		}
