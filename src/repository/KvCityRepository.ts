@@ -22,4 +22,11 @@ export class KvCityRepository {
 
 		return new City(userId);
 	}
+
+	async save(city: City): Promise<void> {
+		await this.kv.put(
+			`${KvCityRepository.Prefix}:${city.id}`,
+			JSON.stringify({}),
+		);
+	}
 }

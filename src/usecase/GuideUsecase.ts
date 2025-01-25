@@ -1,3 +1,4 @@
+import { City } from "@entity/City";
 import { EmailPresenter, CityRepository, Agent } from "./interface";
 
 export class GuideUsecase {
@@ -10,7 +11,8 @@ export class GuideUsecase {
 	async execute(userId: string, message: string): Promise<void> {
 		const city = await this.cityRepository.find(userId);
 		if (!city) {
-			this.presenter.addText("Your find a new city");
+			await this.cityRepository.save(new City(userId));
+			this.presenter.addText("Welcome to the city!");
 			return;
 		}
 

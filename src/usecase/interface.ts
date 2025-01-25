@@ -10,4 +10,5 @@ export interface Agent {
 
 export interface CityRepository {
 	find(userId: string): Promise<City | null>;
+	save(city: City): Promise<void>;
 }
