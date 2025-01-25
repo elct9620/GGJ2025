@@ -83,7 +83,7 @@ Mary 的聯絡方式是 `mary@{{ config.domain }}`。
 <template>
 來訪者，你的目的是什麼？
 
-<署名>
+<名字>
 </template>
 
 ## 初期訊息
@@ -93,7 +93,7 @@ Mary 的聯絡方式是 `mary@{{ config.domain }}`。
 
 <少量的情報>
 
-<署名>
+<名字>
 </template>
 
 ## 友善訊息
@@ -103,7 +103,7 @@ Mary 的聯絡方式是 `mary@{{ config.domain }}`。
 
 <友善的態度>
 
-<署名>
+<名字>
 </template>
 
 ## 惡意訊息
@@ -113,7 +113,7 @@ Mary 的聯絡方式是 `mary@{{ config.domain }}`。
 
 <惡意的態度>
 
-<署名>
+<名字>
 </template>
 
 ## 關鍵訊息
@@ -123,5 +123,5 @@ Mary 的聯絡方式是 `mary@{{ config.domain }}`。
 
 <關鍵的情報>
 
-<署名>
+<名字>
 </template>
