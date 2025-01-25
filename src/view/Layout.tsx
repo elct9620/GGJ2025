@@ -1,7 +1,15 @@
 /** @jsxImportSource hono/jsx */
 
 import { FC } from "hono/jsx";
-import { Style } from "hono/css";
+import { css, Style } from "hono/css";
+
+const globalClass = css`
+	:-hono-global {
+		html {
+			overflow-y: hidden;
+		}
+	}
+`;
 
 export const Layout: FC = ({ children }) => {
 	return (
@@ -10,7 +18,7 @@ export const Layout: FC = ({ children }) => {
 				<title>Atlantis</title>
 				<Style />
 			</head>
-			<body>{children}</body>
+			<body class={globalClass}>{children}</body>
 		</html>
 	);
 };

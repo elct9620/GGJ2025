@@ -7,6 +7,10 @@ import { Layout } from "./Layout";
 import { Building } from "./Building";
 import { css, cx } from "hono/css";
 
+const responsive = css`
+	transform: scale(0.65) translateX(-28%) translateY(-27%);
+`;
+
 const pRelative = css`
 	position: relative;
 `;
@@ -48,7 +52,7 @@ const people = css`
 export const City: FC<CitySnapshot> = ({ id, damage }) => {
 	return (
 		<Layout>
-			<div class={cx(container, pRelative)}>
+			<div class={cx(container, pRelative, responsive)}>
 				<img src="/bg.png" alt="baseCity" />
 				<Building
 					className={cx(pAbsolute, shell)}
