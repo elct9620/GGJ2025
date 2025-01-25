@@ -5,6 +5,7 @@ import {
 	CityInitializedEvent,
 	RefreshEvent,
 } from "./CityEvent";
+import { Npc, NpcName } from "./Npc";
 
 type EventHandler<T extends CityEvent> = (event: T) => void;
 
@@ -18,6 +19,7 @@ export class City {
 	private _life = City.MAX_LIFE;
 	private _damageRate = 0;
 	private updatedAt?: Date;
+	private _npcs: Npc[] = [];
 
 	constructor(public readonly id: string) {
 		this.apply(new CityInitializedEvent({}));
@@ -61,10 +63,18 @@ export class City {
 		return this._events.map((event) => ({ ...event }) as CityEvent);
 	}
 
+	public findNpc(name: NpcName): Npc | undefined {
+		return this._npcs.find((npc) => npc.name === name);
+	}
+
 	private onCityInitializedEvent(event: CityInitializedEvent): void {
 		this._life = City.MAX_LIFE;
 		this._damageRate = 1;
 		this.updatedAt = event.createdAt;
+
+		Object.keys(NpcName).forEach((name) => {
+			this._npcs.push(new Npc(name as NpcName));
+		});
 	}
 
 	private onRefreshEvent(event: RefreshEvent): void {
