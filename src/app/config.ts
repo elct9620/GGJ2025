@@ -4,5 +4,6 @@ export class Config {
 		public readonly awsSecretAccessKey: string,
 		public readonly openAiGateway: string,
 		public readonly openAiApiKey: string,
+		public readonly domain: string,
 	) {}
 }

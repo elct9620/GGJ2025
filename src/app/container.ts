@@ -50,6 +50,7 @@ export function getContainer(env: Env): DependencyContainer {
 			env.AWS_SECRET_ACCESS_KEY,
 			env.OPENAI_GATEWAY,
 			env.OPENAI_API_KEY,
+			env.DOMAIN,
 		),
 	});
 

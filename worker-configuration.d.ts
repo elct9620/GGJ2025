@@ -7,5 +7,10 @@ interface Env {
 	AWS_SECRET_ACCESS_KEY: string;
 	OPENAI_API_KEY: string;
 	OPENAI_GATEWAY: string;
+	DOMAIN: string;
 	CF_VERSION_METADATA: { id: string; tag: string };
+}
+declare module "*.md" {
+	const value: string;
+	export default value;
 }
