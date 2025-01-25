@@ -69,7 +69,7 @@ export class City {
 	}
 
 	public get events(): CityEvent[] {
-		return this._events.map((event) => ({ ...event }) as CityEvent);
+		return [...this._events];
 	}
 
 	public findNpc(name: NpcName): Npc | undefined {

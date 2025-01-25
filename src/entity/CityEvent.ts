@@ -14,7 +14,7 @@ abstract class Event {
 	) {}
 
 	get payload(): Record<string, any> {
-		return { ...this._payload };
+		return Object.assign({}, this._payload);
 	}
 }
 
