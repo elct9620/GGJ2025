@@ -5,6 +5,7 @@ import {
 	CityInitializedEvent,
 	FavorabilityChangedEvent,
 	RefreshEvent,
+	ValveClosedEvent,
 } from "./CityEvent";
 import { Npc, NpcName } from "./Npc";
 
@@ -15,10 +16,12 @@ export class City {
 	static readonly MAX_DAMAGE = 100;
 	static readonly MIN_DAMAGE = 0;
 	static readonly TARGET_DAMAGE_RATE = 0;
+	static readonly REQUIRED_MAX_FAVORABILITY_NPC = 3;
 
 	private _events: CityEvent[] = [];
 	private _life = City.MAX_LIFE;
 	private _damageRate = 0;
+	private _valveClosed = false;
 	private updatedAt?: Date;
 	private _npcs: Npc[] = [];
 
@@ -49,6 +52,24 @@ export class City {
 		this.apply(new FavorabilityChangedEvent({ npcName, change }));
 	}
 
+	public closeValve(): boolean {
+		if (this.isEnded || this.isValveClosed) {
+			return false;
+		}
+
+		const maxFavorabilityNpcCount = this._npcs.reduce(
+			(count, npc) => (npc.favorability === 100 ? count + 1 : count),
+			0,
+		);
+
+		if (maxFavorabilityNpcCount < City.REQUIRED_MAX_FAVORABILITY_NPC) {
+			return false;
+		}
+
+		this.apply(new ValveClosedEvent({}));
+		return true;
+	}
+
 	public get damage(): number {
 		const currentDamage =
 			City.MAX_DAMAGE - Math.floor((this._life * 100) / City.MAX_LIFE);
@@ -58,6 +79,10 @@ export class City {
 
 	public get damageRate(): number {
 		return Math.max(this._damageRate, City.TARGET_DAMAGE_RATE);
+	}
+
+	public get isValveClosed(): boolean {
+		return this._valveClosed;
 	}
 
 	public get isDestroyed(): boolean {
@@ -99,5 +124,10 @@ export class City {
 		}
 
 		npc.changeFavorability(event.payload.change);
+	}
+
+	private onValveClosedEvent(event: ValveClosedEvent): void {
+		this._damageRate = 0;
+		this._valveClosed = true;
 	}
 }

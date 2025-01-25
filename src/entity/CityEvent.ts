@@ -4,6 +4,7 @@ export enum CityEventType {
 	CityInitializedEvent = "CityInitializedEvent",
 	FavorabilityChangedEvent = "FavorabilityChangedEvent",
 	RefreshEvent = "RefreshEvent",
+	ValveClosedEvent = "ValveClosedEvent",
 }
 
 abstract class Event {
@@ -36,6 +37,12 @@ export class FavorabilityChangedEvent extends Event {
 		createdAt: Date = new Date(),
 	) {
 		super(CityEventType.FavorabilityChangedEvent, payload, createdAt);
+	}
+}
+
+export class ValveClosedEvent extends Event {
+	constructor(payload: {}, createdAt: Date = new Date()) {
+		super(CityEventType.ValveClosedEvent, payload, createdAt);
 	}
 }
 
