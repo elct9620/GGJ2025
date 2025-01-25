@@ -3,6 +3,7 @@ import {
 	CityEvent,
 	CityEventType,
 	CityInitializedEvent,
+	FavorabilityChangedEvent,
 	RefreshEvent,
 } from "./CityEvent";
 import { Npc, NpcName } from "./Npc";
@@ -38,6 +39,10 @@ export class City {
 
 	public refresh(): void {
 		this.apply(new RefreshEvent({}));
+	}
+
+	public changeFavorability(npcName: NpcName, change: number): void {
+		this.apply(new FavorabilityChangedEvent({ npcName, change }));
 	}
 
 	public get damage(): number {
@@ -81,5 +86,14 @@ export class City {
 		const deltaTime = event.createdAt.getTime() - this.updatedAt!.getTime();
 		this._life -= deltaTime * this._damageRate;
 		this.updatedAt = event.createdAt;
+	}
+
+	private onFavorabilityChangedEvent(event: FavorabilityChangedEvent): void {
+		const npc = this.findNpc(event.payload.npcName);
+		if (!npc) {
+			throw new Error(`Npc not found: ${event.payload.npcName}`);
+		}
+
+		npc.changeFavorability(event.payload.change);
 	}
 }

@@ -1,5 +1,8 @@
+import { NpcName } from "./Npc";
+
 export enum CityEventType {
 	CityInitializedEvent = "CityInitializedEvent",
+	FavorabilityChangedEvent = "FavorabilityChangedEvent",
 	RefreshEvent = "RefreshEvent",
 }
 
@@ -16,14 +19,23 @@ abstract class Event {
 }
 
 export class CityInitializedEvent extends Event {
-	constructor(payload: Record<string, any>, createdAt: Date = new Date()) {
+	constructor(payload: {}, createdAt: Date = new Date()) {
 		super(CityEventType.CityInitializedEvent, payload, createdAt);
 	}
 }
 
 export class RefreshEvent extends Event {
-	constructor(payload: Record<string, any>, createdAt: Date = new Date()) {
+	constructor(payload: {}, createdAt: Date = new Date()) {
 		super(CityEventType.RefreshEvent, payload, createdAt);
+	}
+}
+
+export class FavorabilityChangedEvent extends Event {
+	constructor(
+		payload: { npcName: NpcName; change: number },
+		createdAt: Date = new Date(),
+	) {
+		super(CityEventType.FavorabilityChangedEvent, payload, createdAt);
 	}
 }
 

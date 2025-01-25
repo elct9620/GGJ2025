@@ -6,6 +6,7 @@ import {
 	CityEvent,
 	CityEventType,
 	CityInitializedEvent,
+	FavorabilityChangedEvent,
 	RefreshEvent,
 } from "@entity/CityEvent";
 import { addBreadcrumb } from "@sentry/cloudflare";
@@ -93,6 +94,11 @@ export class KvCityRepository {
 				);
 			case CityEventType.RefreshEvent:
 				return new RefreshEvent(event.payload, new Date(event.createdAt));
+			case CityEventType.FavorabilityChangedEvent:
+				return new FavorabilityChangedEvent(
+					event.payload as { npcName: NpcName; change: number },
+					new Date(event.createdAt),
+				);
 			default:
 				throw new Error(`Unknown event type: ${event.type}`);
 		}
