@@ -34,7 +34,9 @@ export class KvCityRepository {
 		}
 
 		const city = new City(userId);
-		data.events.forEach((event) => {
+		const events = data.events || [];
+
+		events.forEach((event) => {
 			city.apply(this.rebuildEvent(event));
 		});
 
