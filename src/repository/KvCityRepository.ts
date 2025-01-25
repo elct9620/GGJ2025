@@ -9,6 +9,7 @@ import {
 	RefreshEvent,
 } from "@entity/CityEvent";
 import { addBreadcrumb } from "@sentry/cloudflare";
+import { Config } from "@app/config";
 
 type EventSchema = {
 	type: string;
@@ -24,7 +25,10 @@ type CitySchema = {
 export class KvCityRepository {
 	public static readonly Prefix = "city";
 
-	constructor(@inject(CloudFlareKv) private readonly kv: KVNamespace) {}
+	constructor(
+		@inject(CloudFlareKv) private readonly kv: KVNamespace,
+		@inject(Config) private readonly config: Config,
+	) {}
 
 	async find(userId: string): Promise<City | null> {
 		const data = (await this.kv.get(
@@ -66,7 +70,7 @@ export class KvCityRepository {
 				})),
 			}),
 			{
-				expirationTtl: 60 * 60, // 1 hour
+				expirationTtl: this.config.maxRetentionInSeconds,
 			},
 		);
 	}

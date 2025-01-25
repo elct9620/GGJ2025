@@ -5,5 +5,6 @@ export class Config {
 		public readonly openAiGateway: string,
 		public readonly openAiApiKey: string,
 		public readonly domain: string,
+		public readonly maxRetentionInSeconds: number,
 	) {}
 }

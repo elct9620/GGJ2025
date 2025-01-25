@@ -52,6 +52,7 @@ export function getContainer(env: Env): DependencyContainer {
 			env.OPENAI_GATEWAY,
 			env.OPENAI_API_KEY,
 			env.DOMAIN,
+			60 * 60, // 1 hour
 		),
 	});
 
