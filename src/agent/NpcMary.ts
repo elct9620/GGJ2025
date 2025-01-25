@@ -22,7 +22,7 @@ export class NpcMary {
 	) {}
 
 	async talk(city: City, prompt: string): Promise<string> {
-		const reply = await trackGenerateText("NpcJack.talk", {
+		const reply = await trackGenerateText("NpcMary.talk", {
 			model: this.openai,
 			temperature: 0.5,
 			prompt,
