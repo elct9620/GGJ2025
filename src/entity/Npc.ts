@@ -1,5 +1,7 @@
 export enum NpcName {
 	Jack = "Jack",
+	Mary = "Mary",
+	Matt = "Matt",
 }
 
 export class Npc {
