@@ -24,7 +24,7 @@ export class NpcMatt {
 	async talk(city: City, prompt: string): Promise<string> {
 		const reply = await trackGenerateText("NpcMatt.talk", {
 			model: this.openai,
-			temperature: 0.5,
+			temperature: 0.7,
 			prompt,
 			system: Mustache.render(system, {
 				config: this.config,
