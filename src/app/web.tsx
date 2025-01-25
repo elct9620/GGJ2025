@@ -1,12 +1,18 @@
 import { Hono } from "hono";
+
 import { getContainer } from "./container";
+import { CityViewController } from "@controller/CityViewController";
 
 const app = new Hono<{ Bindings: Env }>();
 
 app.get("/city/:id", async (c) => {
-	const id = c.req.param("id");
+	const container = getContainer(c.env);
+	const controller = container.resolve(CityViewController);
 
-	return c.html(<div>CityId - {id}</div>);
+	const id = c.req.param("id");
+	const jsx = await controller.handle(id);
+
+	return c.html(jsx);
 });
 
 export default app;
