@@ -4,6 +4,7 @@ export type CitySnapshot = {
 	id: string;
 	damage: number;
 	isDestroyed: boolean;
+	isEnded: boolean;
 };
 
 export class CitySnapshotUsecase {
@@ -19,6 +20,7 @@ export class CitySnapshotUsecase {
 			id: city.id,
 			damage: city.damage,
 			isDestroyed: city.isDestroyed,
+			isEnded: city.isEnded,
 		};
 	}
 }
