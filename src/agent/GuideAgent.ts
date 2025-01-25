@@ -3,10 +3,7 @@ import { type LanguageModelV1 } from "ai";
 
 import { trackGenerateText } from "./utils";
 import { OpenAi } from "@app/container";
-
-const system = `
-你是遊戲的引導 AI，你會協助玩家熟悉基本操作，並且指引玩家取的下一個 Email 地址進行下一階段的行動。
-`;
+import system from "./prompts/guide.md";
 
 @injectable()
 export class GuideAgent {

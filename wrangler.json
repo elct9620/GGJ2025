@@ -27,6 +27,13 @@
 	},
 	"kv_namespaces": [
 		{ "binding": "STORE", "id": "11946148990c4657b82d8a71f726feee" }
+	],
+	"rules": [
+		{
+			"type": "Text",
+			"globs": ["**/*.md"],
+			"fallthrough": true
+		}
 	]
 	/**
 	 * Smart Placement
