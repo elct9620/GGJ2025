@@ -7,6 +7,7 @@ import { KvCityRepository } from "@repository/KvCityRepository";
 import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
 import { NpcMatt } from "@agent/NpcMatt";
 import { EndMessageBuilder } from "@builder/EndMessageBuilder";
+import { ProgressBuilder } from "@builder/ProgressBuilder";
 
 @injectable()
 export class NpcMattController extends EmailController {
@@ -18,6 +19,7 @@ export class NpcMattController extends EmailController {
 		@inject(NpcMatt) private readonly npc: NpcMatt,
 		@inject(EndMessageBuilder)
 		private readonly endMessageBuilder: EndMessageBuilder,
+		@inject(ProgressBuilder) private readonly progressBuilder: ProgressBuilder,
 	) {
 		super();
 	}
@@ -38,6 +40,7 @@ export class NpcMattController extends EmailController {
 		const usecase = new TaklWithNpcUsecase(
 			presenter,
 			this.endMessageBuilder,
+			this.progressBuilder,
 			this.cityRepository,
 			this.npc,
 		);
