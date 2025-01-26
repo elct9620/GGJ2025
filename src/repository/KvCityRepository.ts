@@ -95,6 +95,14 @@ export class KvCityRepository {
 	}
 
 	async save(city: City): Promise<void> {
+		const conversations = Object.keys(NpcName).reduce(
+			(acc, name) => {
+				acc[name as NpcName] = city.findConversations(name as NpcName);
+				return acc;
+			},
+			{} as Record<NpcName, Conversation[]>,
+		);
+
 		addBreadcrumb({
 			type: "debug",
 			category: "game.city",
@@ -106,6 +114,7 @@ export class KvCityRepository {
 					name,
 					favorability: city.findNpc(name as NpcName)?.favorability,
 				})),
+				conversations,
 			},
 		});
 
@@ -117,13 +126,7 @@ export class KvCityRepository {
 					payload: event.payload,
 					createdAt: event.createdAt.toISOString(),
 				})),
-				conversations: Object.keys(NpcName).reduce(
-					(acc, name) => {
-						acc[name as NpcName] = city.findConversations(name as NpcName);
-						return acc;
-					},
-					{} as Record<NpcName, Conversation[]>,
-				),
+				conversations,
 			}),
 			{
 				expirationTtl: this.config.maxRetentionInSeconds,
