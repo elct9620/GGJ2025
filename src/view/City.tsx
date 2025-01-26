@@ -14,6 +14,23 @@ const container = css`
 	transform: scale(0.65) translateX(-28%) translateY(-27%);
 `;
 
+const button = css`
+	font-family: "Courier New", monospace;
+	position: absolute;
+	border: 0;
+	background-color: transparent;
+	top: 83%;
+	right: 0%;
+	font-size: 34pt;
+	cursor: pointer;
+	color: black;
+	font-weight: bold;
+	transition: color 0.3s;
+	&:hover {
+		color: red;
+	}
+`;
+
 const caculateDamaged = function (damage: number) {
 	if (damage < 30) return "_0.png";
 	if (damage < 70) return "_1.png";
@@ -48,6 +65,9 @@ export const City: FC<CitySnapshot> = ({ id, damage, npcStatus }) => {
 					left="58%"
 					favorability={npcStatus.Matt.favorability}
 				/>
+				<button onclick="location.href='/credit'" class={button}>
+					- Credit -
+				</button>
 			</div>
 		</Layout>
 	);

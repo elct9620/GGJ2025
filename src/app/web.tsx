@@ -5,6 +5,7 @@ import { etag } from "hono/etag";
 
 import { getContainer } from "./container";
 import { CityViewController } from "@controller/CityViewController";
+import { Credit } from "@view/Credit";
 
 const app = new Hono<{ Bindings: Env }>();
 app.use(etag());
@@ -27,6 +28,10 @@ app.get("/city/:id", async (c) => {
 	}
 
 	return c.html(jsx);
+});
+
+app.get("/credit", (c) => {
+	return c.html(<Credit />);
 });
 
 export default app;
