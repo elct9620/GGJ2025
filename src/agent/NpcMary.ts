@@ -13,6 +13,7 @@ import {
 	canChangeFavorability,
 	canGetFavorability,
 } from "./tools/Favorability";
+import { canCallPeople } from "./tools/Skill";
 
 @injectable()
 export class NpcMary {
@@ -42,6 +43,7 @@ export class NpcMary {
 			tools: {
 				getFavorability: canGetFavorability(this.name, city),
 				changeFavorability: canChangeFavorability(this.name, city),
+				callPeople: canCallPeople(city),
 			},
 		});
 

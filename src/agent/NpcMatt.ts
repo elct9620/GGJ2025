@@ -13,6 +13,7 @@ import {
 	canChangeFavorability,
 	canGetFavorability,
 } from "./tools/Favorability";
+import { canEnableProtectMachine } from "./tools/Skill";
 
 @injectable()
 export class NpcMatt {
@@ -40,6 +41,7 @@ export class NpcMatt {
 			tools: {
 				getFavorability: canGetFavorability(this.name, city),
 				changeFavorability: canChangeFavorability(this.name, city),
+				enableProtectMachine: canEnableProtectMachine(city),
 			},
 		});
 

@@ -19,6 +19,7 @@ export class City {
 	static readonly MAX_DAMAGE = 100;
 	static readonly MIN_DAMAGE = 0;
 	static readonly TARGET_DAMAGE_RATE = 0;
+	static readonly DAMAGE_RATE_DECREASE_RATIO = 0.25;
 	static readonly REQUIRED_MAX_FAVORABILITY_NPC = 3;
 	static readonly REQUIRED_MIN_FAVORABILITY = 80;
 
@@ -178,10 +179,12 @@ export class City {
 	public onEnableProtectedMachineEvent(
 		event: EnableProtectedMachineEvent,
 	): void {
+		this._damageRate = this._damageRate * City.DAMAGE_RATE_DECREASE_RATIO;
 		this._protecteMachineEnabled = true;
 	}
 
 	public onCallPeopleEvent(event: CallPeopleEvent): void {
+		this._damageRate = this._damageRate * City.DAMAGE_RATE_DECREASE_RATIO;
 		this._peopleIsCalled = true;
 	}
 }
