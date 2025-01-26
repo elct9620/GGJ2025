@@ -105,12 +105,7 @@ export class KvCityRepository {
 	async save(city: City): Promise<void> {
 		const conversations = Object.keys(NpcName).reduce(
 			(acc, name) => {
-				acc[name as NpcName] = city
-					.findConversations(name as NpcName)
-					.map((c) => ({
-						role: c.role,
-						content: c.content,
-					}));
+				acc[name as NpcName] = city.findConversations(name as NpcName);
 				return acc;
 			},
 			{} as Record<NpcName, Conversation[]>,
@@ -127,7 +122,7 @@ export class KvCityRepository {
 					name,
 					favorability: city.findNpc(name as NpcName)?.favorability,
 				})),
-				conversations,
+				...conversations,
 			},
 		});
 
