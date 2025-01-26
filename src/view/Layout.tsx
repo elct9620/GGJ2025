@@ -16,7 +16,7 @@ export const Layout: FC = ({ children }) => {
 		<html>
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<title>Atlantis</title>
+				<title>Bubble Mail: Atlantis Rescue</title>
 				<Style />
 			</head>
 			<body class={globalClass}>{children}</body>
