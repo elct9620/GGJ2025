@@ -47,9 +47,18 @@ export class KvCityRepository {
 
 		const city = new City(userId);
 		const events = data.events || [];
+		const conversations = data.conversations || {};
 
 		events.forEach((event) => {
 			city.apply(this.rebuildEvent(event));
+		});
+
+		Object.keys(NpcName).forEach((name) => {
+			const npcName = name as NpcName;
+			const conversation = conversations[npcName] || [];
+			conversation.forEach((c) => {
+				city.addConversation(npcName, { role: c.role, content: c.content });
+			});
 		});
 
 		return city;
@@ -66,7 +75,6 @@ export class KvCityRepository {
 
 		const city = new City(userId);
 		const events = data.events || [];
-		const conversations = data.conversations || {};
 
 		const now = new Date();
 		const visibleTime =
@@ -83,26 +91,13 @@ export class KvCityRepository {
 			}
 		});
 
-		Object.keys(NpcName).forEach((name) => {
-			const npcName = name as NpcName;
-			const conversation = conversations[npcName] || [];
-			conversation.forEach((c) => {
-				city.addConversation(npcName, { role: c.role, content: c.content });
-			});
-		});
-
 		return city;
 	}
 
 	async save(city: City): Promise<void> {
 		const conversations = Object.keys(NpcName).reduce(
 			(acc, name) => {
-				acc[name as NpcName] = city
-					.findConversations(name as NpcName)
-					.map((c) => ({
-						role: c.role,
-						content: c.content,
-					}));
+				acc[name as NpcName] = city.findConversations(name as NpcName);
 				return acc;
 			},
 			{} as Record<NpcName, Conversation[]>,
@@ -119,7 +114,7 @@ export class KvCityRepository {
 					name,
 					favorability: city.findNpc(name as NpcName)?.favorability,
 				})),
-				conversations,
+				...conversations,
 			},
 		});
 
