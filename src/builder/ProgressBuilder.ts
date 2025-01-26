@@ -15,6 +15,6 @@ export class ProgressBuilder {
 		const progress = Math.floor(city.damage / 5);
 		const progressBar = `${ProgressBuilder.progressFill.repeat(progress)}${ProgressBuilder.progressEmpty.repeat(progressLength - progress)}`;
 
-		return `損壞度：${progressBar} ${city.damage}%`;
+		return `城市損壞度：${progressBar} ${city.damage}%`;
 	}
 }
