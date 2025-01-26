@@ -91,6 +91,14 @@ export class KvCityRepository {
 			});
 		});
 
+		Object.keys(NpcName).forEach((name) => {
+			const npcName = name as NpcName;
+			const conversation = conversations[npcName] || [];
+			conversation.forEach((c) => {
+				city.addConversation(npcName, { role: c.role, content: c.content });
+			});
+		});
+
 		return city;
 	}
 
