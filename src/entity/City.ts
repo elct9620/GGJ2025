@@ -13,7 +13,7 @@ type EventHandler<T extends CityEvent> = (event: T) => void;
 type Conversation = { role: "user" | "assistant"; content: string };
 
 export class City {
-	static readonly MAX_LIFE = 60 * 10 * 1000; // 10 minutes
+	static readonly MAX_LIFE = 60 * 20 * 1000; // 20 minutes
 	static readonly MAX_DAMAGE = 100;
 	static readonly MIN_DAMAGE = 0;
 	static readonly TARGET_DAMAGE_RATE = 0;
