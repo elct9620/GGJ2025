@@ -47,9 +47,18 @@ export class KvCityRepository {
 
 		const city = new City(userId);
 		const events = data.events || [];
+		const conversations = data.conversations || {};
 
 		events.forEach((event) => {
 			city.apply(this.rebuildEvent(event));
+		});
+
+		Object.keys(NpcName).forEach((name) => {
+			const npcName = name as NpcName;
+			const conversation = conversations[npcName] || [];
+			conversation.forEach((c) => {
+				city.addConversation(npcName, { role: c.role, content: c.content });
+			});
 		});
 
 		return city;
@@ -66,7 +75,6 @@ export class KvCityRepository {
 
 		const city = new City(userId);
 		const events = data.events || [];
-		const conversations = data.conversations || {};
 
 		const now = new Date();
 		const visibleTime =
@@ -81,22 +89,6 @@ export class KvCityRepository {
 			if (isInitialized || isVisible) {
 				city.apply(rebuildedEvent);
 			}
-		});
-
-		Object.keys(NpcName).forEach((name) => {
-			const npcName = name as NpcName;
-			const conversation = conversations[npcName] || [];
-			conversation.forEach((c) => {
-				city.addConversation(npcName, { role: c.role, content: c.content });
-			});
-		});
-
-		Object.keys(NpcName).forEach((name) => {
-			const npcName = name as NpcName;
-			const conversation = conversations[npcName] || [];
-			conversation.forEach((c) => {
-				city.addConversation(npcName, { role: c.role, content: c.content });
-			});
 		});
 
 		return city;
