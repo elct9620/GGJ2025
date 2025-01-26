@@ -7,7 +7,7 @@ export class TaklWithNpcUsecase {
 		private readonly npc: Npc,
 	) {}
 
-	async execute(userId: string, message: string): Promise<void> {
+	async execute(userId: string, content: string): Promise<void> {
 		const city = await this.cityRepository.find(userId);
 		if (!city) {
 			// NOTE: Reject if the user is not in any city.
@@ -16,8 +16,9 @@ export class TaklWithNpcUsecase {
 		}
 
 		city.refresh();
+		city.addConversation(this.npc.name, { role: "user", content });
 
-		const reply = await this.npc.talk(city, message);
+		const reply = await this.npc.talk(city);
 		this.presenter.addText(reply);
 
 		await this.cityRepository.save(city);

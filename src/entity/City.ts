@@ -10,6 +10,7 @@ import {
 import { Npc, NpcName } from "./Npc";
 
 type EventHandler<T extends CityEvent> = (event: T) => void;
+type Conversation = { role: "user" | "assistant"; content: string };
 
 export class City {
 	static readonly MAX_LIFE = 60 * 10 * 1000; // 10 minutes
@@ -17,6 +18,16 @@ export class City {
 	static readonly MIN_DAMAGE = 0;
 	static readonly TARGET_DAMAGE_RATE = 0;
 	static readonly REQUIRED_MAX_FAVORABILITY_NPC = 3;
+
+	private conversations: Record<NpcName, Conversation[]> = Object.keys(
+		NpcName,
+	).reduce(
+		(acc, name) => {
+			acc[name as NpcName] = [];
+			return acc;
+		},
+		{} as Record<NpcName, Conversation[]>,
+	);
 
 	private _events: CityEvent[] = [];
 	private _life = City.MAX_LIFE;
@@ -68,6 +79,14 @@ export class City {
 
 		this.apply(new ValveClosedEvent({}));
 		return true;
+	}
+
+	public addConversation(npcName: NpcName, conversation: Conversation): void {
+		this.conversations[npcName].push(conversation);
+	}
+
+	public findConversations(npcName: NpcName): Conversation[] {
+		return [...this.conversations[npcName]];
 	}
 
 	public get damage(): number {

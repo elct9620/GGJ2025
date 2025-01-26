@@ -16,30 +16,34 @@ import {
 
 @injectable()
 export class NpcMatt {
+	public readonly name = NpcName.Matt;
+
 	constructor(
 		@inject(OpenAi) private readonly openai: LanguageModelV1,
 		@inject(Config) private readonly config: Config,
 	) {}
 
-	async talk(city: City, prompt: string): Promise<string> {
+	async talk(city: City): Promise<string> {
 		const reply = await trackGenerateText("NpcMatt.talk", {
 			model: this.openai,
 			temperature: 0.7,
-			prompt,
+			messages: city.findConversations(this.name),
 			system: Mustache.render(system, {
 				config: this.config,
 				isEnded: city.isEnded,
 				isDestroyed: city.isDestroyed,
 				favorability() {
-					return city.findNpc(NpcName.Matt)?.favorability ?? 50;
+					return city.findNpc(this.name)?.favorability ?? 50;
 				},
 			}),
 			maxSteps: 15,
 			tools: {
-				getFavorability: canGetFavorability(NpcName.Matt, city),
-				changeFavorability: canChangeFavorability(NpcName.Matt, city),
+				getFavorability: canGetFavorability(this.name, city),
+				changeFavorability: canChangeFavorability(this.name, city),
 			},
 		});
+
+		city.addConversation(this.name, { role: "assistant", content: reply.text });
 
 		return reply.text;
 	}

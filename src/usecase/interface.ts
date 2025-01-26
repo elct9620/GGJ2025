@@ -1,4 +1,5 @@
 import { City } from "@entity/City";
+import { NpcName } from "@entity/Npc";
 
 export interface EmailPresenter {
 	addText(text: string): void;
@@ -9,7 +10,8 @@ export interface Agent {
 }
 
 export interface Npc {
-	talk(city: City, prompt: string): Promise<string>;
+	get name(): NpcName;
+	talk(city: City): Promise<string>;
 }
 
 export interface CityRepository {

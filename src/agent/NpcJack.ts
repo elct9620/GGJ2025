@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe-neo";
 import { z } from "zod";
-import { tool, type LanguageModelV1 } from "ai";
+import { CoreMessage, tool, type LanguageModelV1 } from "ai";
 import Mustache from "mustache";
 
 import { trackGenerateText } from "./utils";
@@ -17,16 +17,18 @@ import { canCloseValve } from "./tools/Valve";
 
 @injectable()
 export class NpcJack {
+	public readonly name = NpcName.Jack;
+
 	constructor(
 		@inject(OpenAi) private readonly openai: LanguageModelV1,
 		@inject(Config) private readonly config: Config,
 	) {}
 
-	async talk(city: City, prompt: string): Promise<string> {
+	async talk(city: City): Promise<string> {
 		const reply = await trackGenerateText("NpcJack.talk", {
 			model: this.openai,
 			temperature: 0.5,
-			prompt,
+			messages: city.findConversations(this.name),
 			system: Mustache.render(system, {
 				config: this.config,
 				damageProgress: city.damage,
@@ -36,11 +38,13 @@ export class NpcJack {
 			}),
 			maxSteps: 15,
 			tools: {
-				getFavorability: canGetFavorability(NpcName.Jack, city),
-				changeFavorability: canChangeFavorability(NpcName.Jack, city),
+				getFavorability: canGetFavorability(this.name, city),
+				changeFavorability: canChangeFavorability(this.name, city),
 				closeValve: canCloseValve(city),
 			},
 		});
+
+		city.addConversation(this.name, { role: "assistant", content: reply.text });
 
 		return reply.text;
 	}

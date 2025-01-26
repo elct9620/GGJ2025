@@ -20,8 +20,11 @@ type EventSchema = {
 	createdAt: string;
 };
 
+type Conversation = { role: "user" | "assistant"; content: string };
+
 type CitySchema = {
 	events: EventSchema[];
+	conversations: Record<NpcName, Conversation[]>;
 };
 
 @injectable()
@@ -63,6 +66,7 @@ export class KvCityRepository {
 
 		const city = new City(userId);
 		const events = data.events || [];
+		const conversations = data.conversations || {};
 
 		const now = new Date();
 		const visibleTime =
@@ -78,6 +82,13 @@ export class KvCityRepository {
 				city.apply(rebuildedEvent);
 			}
 		});
+
+		for (const name in conversations) {
+			const npcName = name as NpcName;
+			conversations[npcName].forEach((conversation) => {
+				city.addConversation(npcName, conversation);
+			});
+		}
 
 		return city;
 	}
@@ -105,6 +116,13 @@ export class KvCityRepository {
 					payload: event.payload,
 					createdAt: event.createdAt.toISOString(),
 				})),
+				conversations: Object.keys(NpcName).reduce(
+					(acc, name) => {
+						acc[name as NpcName] = city.findConversations(name as NpcName);
+						return acc;
+					},
+					{} as Record<NpcName, Conversation[]>,
+				),
 			}),
 			{
 				expirationTtl: this.config.maxRetentionInSeconds,
