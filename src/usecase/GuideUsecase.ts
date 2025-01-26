@@ -4,12 +4,14 @@ import {
 	CityRepository,
 	Agent,
 	WelcomeMessageBuilder,
+	EndMessageBuilder,
 } from "./interface";
 
 export class GuideUsecase {
 	constructor(
 		private readonly presenter: EmailPresenter,
 		private readonly welcomeMessageBuilder: WelcomeMessageBuilder,
+		private readonly endMessageBuilder: EndMessageBuilder,
 		private readonly agent: Agent,
 		private readonly cityRepository: CityRepository,
 	) {}
@@ -24,10 +26,17 @@ export class GuideUsecase {
 			return;
 		}
 
+		city.refresh();
+		if (city.isEnded) {
+			const endMessage = this.endMessageBuilder.build(userId, city);
+			this.presenter.addText(endMessage);
+
+			return;
+		}
+
 		const reply = await this.agent.talk(message);
 		this.presenter.addText(reply);
 
-		city.refresh();
 		await this.cityRepository.save(city);
 	}
 }

@@ -6,6 +6,7 @@ import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
 import { KvCityRepository } from "@repository/KvCityRepository";
 import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
 import { NpcMatt } from "@agent/NpcMatt";
+import { EndMessageBuilder } from "@builder/EndMessageBuilder";
 
 @injectable()
 export class NpcMattController extends EmailController {
@@ -15,6 +16,8 @@ export class NpcMattController extends EmailController {
 		@inject(SESv2Client) private readonly ses: SESv2Client,
 		@inject(KvCityRepository) private readonly cityRepository: KvCityRepository,
 		@inject(NpcMatt) private readonly npc: NpcMatt,
+		@inject(EndMessageBuilder)
+		private readonly endMessageBuilder: EndMessageBuilder,
 	) {
 		super();
 	}
@@ -34,6 +37,7 @@ export class NpcMattController extends EmailController {
 		});
 		const usecase = new TaklWithNpcUsecase(
 			presenter,
+			this.endMessageBuilder,
 			this.cityRepository,
 			this.npc,
 		);
