@@ -121,7 +121,7 @@ export class KvCityRepository {
 			const conversation = conversations[name as NpcName];
 			addBreadcrumb({
 				type: "debug",
-				category: "game.city",
+				category: "game.conversation",
 				data: {
 					name: name,
 					conversation: conversation,
