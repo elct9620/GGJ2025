@@ -6,6 +6,8 @@ import {
 	FavorabilityChangedEvent,
 	RefreshEvent,
 	ValveClosedEvent,
+	EnableProtectedMachineEvent,
+	CallPeopleEvent,
 } from "./CityEvent";
 import { Npc, NpcName } from "./Npc";
 
@@ -36,6 +38,9 @@ export class City {
 	private _valveClosed = false;
 	private updatedAt?: Date;
 	private _npcs: Npc[] = [];
+
+	private _protecteMachineEnabled = false;
+	private _peopleIsCalled = false;
 
 	static create(id: string): City {
 		const city = new City(id);
@@ -80,6 +85,24 @@ export class City {
 		}
 
 		this.apply(new ValveClosedEvent({}));
+		return true;
+	}
+
+	public enableProtectedMachine(): boolean {
+		if (this._protecteMachineEnabled) {
+			return false;
+		}
+
+		this.apply(new EnableProtectedMachineEvent({}));
+		return true;
+	}
+
+	public callPeople(): boolean {
+		if (this._peopleIsCalled) {
+			return false;
+		}
+
+		this.apply(new CallPeopleEvent({}));
 		return true;
 	}
 
@@ -150,5 +173,15 @@ export class City {
 	private onValveClosedEvent(event: ValveClosedEvent): void {
 		this._damageRate = 0;
 		this._valveClosed = true;
+	}
+
+	public onEnableProtectedMachineEvent(
+		event: EnableProtectedMachineEvent,
+	): void {
+		this._protecteMachineEnabled = true;
+	}
+
+	public onCallPeopleEvent(event: CallPeopleEvent): void {
+		this._peopleIsCalled = true;
 	}
 }

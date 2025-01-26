@@ -5,6 +5,8 @@ export enum CityEventType {
 	FavorabilityChangedEvent = "FavorabilityChangedEvent",
 	RefreshEvent = "RefreshEvent",
 	ValveClosedEvent = "ValveClosedEvent",
+	EnableProtectedMachineEvent = "EnableProtectedMachineEvent",
+	CallPeopleEvent = "CallPeopleEvent",
 }
 
 abstract class Event {
@@ -43,6 +45,18 @@ export class FavorabilityChangedEvent extends Event {
 export class ValveClosedEvent extends Event {
 	constructor(payload: {}, createdAt: Date = new Date()) {
 		super(CityEventType.ValveClosedEvent, payload, createdAt);
+	}
+}
+
+export class EnableProtectedMachineEvent extends Event {
+	constructor(payload: {}, createdAt: Date = new Date()) {
+		super(CityEventType.EnableProtectedMachineEvent, payload, createdAt);
+	}
+}
+
+export class CallPeopleEvent extends Event {
+	constructor(payload: {}, createdAt: Date = new Date()) {
+		super(CityEventType.CallPeopleEvent, payload, createdAt);
 	}
 }
 

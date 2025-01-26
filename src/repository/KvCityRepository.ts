@@ -3,9 +3,11 @@ import { inject, injectable } from "tsyringe-neo";
 import { CloudFlareKv } from "@app/container";
 import { City } from "@entity/City";
 import {
+	CallPeopleEvent,
 	CityEvent,
 	CityEventType,
 	CityInitializedEvent,
+	EnableProtectedMachineEvent,
 	FavorabilityChangedEvent,
 	RefreshEvent,
 	ValveClosedEvent,
@@ -165,6 +167,13 @@ export class KvCityRepository {
 				);
 			case CityEventType.ValveClosedEvent:
 				return new ValveClosedEvent(event.payload, new Date(event.createdAt));
+			case CityEventType.EnableProtectedMachineEvent:
+				return new EnableProtectedMachineEvent(
+					event.payload,
+					new Date(event.createdAt),
+				);
+			case CityEventType.CallPeopleEvent:
+				return new CallPeopleEvent(event.payload, new Date(event.createdAt));
 			default:
 				throw new Error(`Unknown event type: ${event.type}`);
 		}
