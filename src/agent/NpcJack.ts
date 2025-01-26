@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe-neo";
 import { z } from "zod";
-import { CoreMessage, tool, type LanguageModelV1 } from "ai";
+import { CoreMessage, CoreTool, tool, type LanguageModelV1 } from "ai";
 import Mustache from "mustache";
 
 import { trackGenerateText } from "./utils";
@@ -14,39 +14,26 @@ import {
 	canGetFavorability,
 } from "./tools/Favorability";
 import { canCloseValve } from "./tools/Valve";
+import { Npc } from "./Npc";
 
 @injectable()
-export class NpcJack {
+export class NpcJack extends Npc {
 	public readonly name = NpcName.Jack;
+	public readonly temperature = 0.5;
+	public readonly system = system;
 
 	constructor(
-		@inject(OpenAi) private readonly openai: LanguageModelV1,
-		@inject(Config) private readonly config: Config,
-	) {}
+		@inject(OpenAi) openai: LanguageModelV1,
+		@inject(Config) config: Config,
+	) {
+		super(openai, config);
+	}
 
-	async talk(city: City): Promise<string> {
-		const reply = await trackGenerateText("NpcJack.talk", {
-			model: this.openai,
-			temperature: 0.5,
-			messages: city.findConversations(this.name),
-			system: Mustache.render(system, {
-				config: this.config,
-				damageProgress: city.damage,
-				damageRate: city.damageRate,
-				isEnded: city.isEnded,
-				isDestroyed: city.isDestroyed,
-				favorability: city.findNpc(this.name)?.favorability ?? 50,
-			}),
-			maxSteps: 15,
-			tools: {
-				getFavorability: canGetFavorability(this.name, city),
-				changeFavorability: canChangeFavorability(this.name, city),
-				closeValve: canCloseValve(city),
-			},
-		});
-
-		city.addConversation(this.name, { role: "assistant", content: reply.text });
-
-		return reply.text;
+	protected buildTools(city: City): Record<string, CoreTool> {
+		return {
+			getFavorability: canGetFavorability(this.name, city),
+			changeFavorability: canChangeFavorability(this.name, city),
+			closeValve: canCloseValve(city),
+		};
 	}
 }
