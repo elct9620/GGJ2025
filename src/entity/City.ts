@@ -19,7 +19,7 @@ export class City {
 	static readonly MAX_DAMAGE = 100;
 	static readonly MIN_DAMAGE = 0;
 	static readonly TARGET_DAMAGE_RATE = 0;
-	static readonly DAMAGE_RATE_DECREASE_RATIO = 0.25;
+	static readonly DAMAGE_RATE_DECREASE_RATIO = 0.5;
 	static readonly REQUIRED_MAX_FAVORABILITY_NPC = 3;
 	static readonly REQUIRED_MIN_FAVORABILITY = 80;
 
