@@ -1,7 +1,7 @@
 /** @jsxImportSource hono/jsx */
 
-import { inject, injectable } from "tsyringe-neo";
 import { HtmlEscapedString } from "hono/utils/html";
+import { inject, injectable } from "tsyringe-neo";
 
 import { KvCityRepository } from "@repository/KvCityRepository";
 import { CitySnapshotUsecase } from "@usecase/CitySnapshotUsecase";

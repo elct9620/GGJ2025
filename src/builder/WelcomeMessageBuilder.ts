@@ -1,7 +1,7 @@
-import { inject, injectable } from "tsyringe-neo";
-import Mustache from "mustache";
-import welcomeMessage from "./text/welcome.txt";
 import { Config } from "@app/config";
+import Mustache from "mustache";
+import { inject, injectable } from "tsyringe-neo";
+import welcomeMessage from "./text/welcome.txt";
 
 @injectable()
 export class WelcomeMessageBuilder {

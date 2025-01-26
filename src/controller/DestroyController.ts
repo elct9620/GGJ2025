@@ -1,10 +1,10 @@
 import { inject, injectable } from "tsyringe-neo";
 
-import { EmailController, EmailParams } from "./EmailController";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
-import { DestroyUsecase } from "@usecase/DestroyUsecase";
 import { KvCityRepository } from "@repository/KvCityRepository";
+import { DestroyUsecase } from "@usecase/DestroyUsecase";
+import { EmailController, EmailParams } from "./EmailController";
 
 @injectable()
 export class DestroyController extends EmailController {

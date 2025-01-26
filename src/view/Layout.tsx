@@ -1,7 +1,7 @@
 /** @jsxImportSource hono/jsx */
 
-import { FC } from "hono/jsx";
 import { css, Style } from "hono/css";
+import { FC } from "hono/jsx";
 
 const globalClass = css`
 	:-hono-global {

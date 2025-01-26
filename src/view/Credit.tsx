@@ -1,7 +1,7 @@
 /** @jsxImportSource hono/jsx */
 
-import { FC } from "hono/jsx";
 import { Style, css } from "hono/css";
+import { FC } from "hono/jsx";
 
 export const Credit: FC = () => {
 	const container = css`

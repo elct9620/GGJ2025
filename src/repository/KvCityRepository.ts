@@ -1,6 +1,6 @@
-import { type KVNamespace } from "@cloudflare/workers-types";
-import { inject, injectable } from "tsyringe-neo";
+import { Config } from "@app/config";
 import { CloudFlareKv } from "@app/container";
+import { type KVNamespace } from "@cloudflare/workers-types";
 import { City } from "@entity/City";
 import {
 	CallPeopleEvent,
@@ -12,9 +12,9 @@ import {
 	RefreshEvent,
 	ValveClosedEvent,
 } from "@entity/CityEvent";
-import { addBreadcrumb } from "@sentry/cloudflare";
-import { Config } from "@app/config";
 import { NpcName } from "@entity/Npc";
+import { addBreadcrumb } from "@sentry/cloudflare";
+import { inject, injectable } from "tsyringe-neo";
 
 type EventSchema = {
 	type: string;

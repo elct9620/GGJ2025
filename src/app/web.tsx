@@ -1,11 +1,10 @@
 import { Hono } from "hono";
 import { cache } from "hono/cache";
-import { compress } from "hono/compress";
 import { etag } from "hono/etag";
 
-import { getContainer } from "./container";
 import { CityViewController } from "@controller/CityViewController";
 import { Credit } from "@view/Credit";
+import { getContainer } from "./container";
 
 const app = new Hono<{ Bindings: Env }>();
 app.use(etag());

@@ -1,13 +1,11 @@
-import { inject, injectable } from "tsyringe-neo";
-
-import { EmailController, EmailParams } from "./EmailController";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
-import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
-import { KvCityRepository } from "@repository/KvCityRepository";
-import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
 import { EndMessageBuilder } from "@builder/EndMessageBuilder";
 import { ProgressBuilder } from "@builder/ProgressBuilder";
+import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
+import { KvCityRepository } from "@repository/KvCityRepository";
 import { Npc } from "@usecase/interface";
+import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
+import { EmailController, EmailParams } from "./EmailController";
 
 export abstract class NpcController extends EmailController {
 	constructor(

@@ -1,20 +1,17 @@
+import { CoreTool, type LanguageModelV1 } from "ai";
 import { inject, injectable } from "tsyringe-neo";
-import { z } from "zod";
-import { CoreTool, tool, type LanguageModelV1 } from "ai";
-import Mustache from "mustache";
 
-import { trackGenerateText } from "./utils";
-import { OpenAi } from "@app/container";
 import { Config } from "@app/config";
-import system from "./prompts/matt.md";
+import { OpenAi } from "@app/container";
 import { City } from "@entity/City";
 import { NpcName } from "@entity/Npc";
+import { Npc } from "./Npc";
+import system from "./prompts/matt.md";
 import {
 	canChangeFavorability,
 	canGetFavorability,
 } from "./tools/Favorability";
 import { canEnableProtectMachine } from "./tools/Skill";
-import { Npc } from "./Npc";
 
 @injectable()
 export class NpcMatt extends Npc {

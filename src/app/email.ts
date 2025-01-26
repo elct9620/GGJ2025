@@ -1,4 +1,4 @@
-import { captureException, setUser, startSpan } from "@sentry/cloudflare";
+import { setUser, startSpan } from "@sentry/cloudflare";
 import { getContainer } from "./container";
 import { routes } from "./routes/email";
 import { sha256 } from "./utils";

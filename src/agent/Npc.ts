@@ -1,19 +1,10 @@
-import { inject, injectable } from "tsyringe-neo";
-import { z } from "zod";
-import { CoreMessage, CoreTool, tool, type LanguageModelV1 } from "ai";
+import { CoreTool, type LanguageModelV1 } from "ai";
 import Mustache from "mustache";
 
-import { trackGenerateText } from "./utils";
-import { OpenAi } from "@app/container";
 import { Config } from "@app/config";
-import system from "./prompts/jack.md";
 import { City } from "@entity/City";
 import { NpcName } from "@entity/Npc";
-import {
-	canChangeFavorability,
-	canGetFavorability,
-} from "./tools/Favorability";
-import { canCloseValve } from "./tools/Valve";
+import { trackGenerateText } from "./utils";
 
 export abstract class Npc {
 	protected readonly maxSteps = 15;

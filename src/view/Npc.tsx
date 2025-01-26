@@ -1,7 +1,7 @@
 /** @jsxImportSource hono/jsx */
 
-import { FC } from "hono/jsx";
 import { css } from "hono/css";
+import { FC } from "hono/jsx";
 
 const caculateFavorability = function (favorability: number) {
 	if (favorability <= 30) return "_mad.png";

@@ -1,7 +1,6 @@
-import { inject, injectable } from "tsyringe-neo";
-import Mustache from "mustache";
 import { Config } from "@app/config";
 import { City } from "@entity/City";
+import { inject, injectable } from "tsyringe-neo";
 
 @injectable()
 export class ProgressBuilder {

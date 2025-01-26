@@ -1,14 +1,12 @@
 import { inject, injectable } from "tsyringe-neo";
 
-import { NpcController } from "./NpcController";
+import { NpcMary } from "@agent/NpcMary";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
-import { SesEmailPresenter } from "@presenter/SesEmailPresenter";
-import { KvCityRepository } from "@repository/KvCityRepository";
-import { TaklWithNpcUsecase } from "@usecase/TalkWithNpcUsecase";
 import { EndMessageBuilder } from "@builder/EndMessageBuilder";
 import { ProgressBuilder } from "@builder/ProgressBuilder";
 import { NpcName } from "@entity/Npc";
-import { NpcMary } from "@agent/NpcMary";
+import { KvCityRepository } from "@repository/KvCityRepository";
+import { NpcController } from "./NpcController";
 
 @injectable()
 export class NpcMaryController extends NpcController {

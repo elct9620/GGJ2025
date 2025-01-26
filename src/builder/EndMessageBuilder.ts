@@ -1,8 +1,8 @@
-import { inject, injectable } from "tsyringe-neo";
-import Mustache from "mustache";
-import endMessage from "./text/end.txt";
 import { Config } from "@app/config";
 import { City } from "@entity/City";
+import Mustache from "mustache";
+import { inject, injectable } from "tsyringe-neo";
+import endMessage from "./text/end.txt";
 
 @injectable()
 export class EndMessageBuilder {

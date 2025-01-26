@@ -1,11 +1,11 @@
-import { inject, injectable } from "tsyringe-neo";
 import { type LanguageModelV1 } from "ai";
 import Mustache from "mustache";
+import { inject, injectable } from "tsyringe-neo";
 
-import { trackGenerateText } from "./utils";
+import { Config } from "@app/config";
 import { OpenAi } from "@app/container";
 import system from "./prompts/guide.md";
-import { Config } from "@app/config";
+import { trackGenerateText } from "./utils";
 
 @injectable()
 export class GuideAgent {

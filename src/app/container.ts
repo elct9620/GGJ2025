@@ -1,6 +1,6 @@
+import { createOpenAI } from "@ai-sdk/openai";
 import { SESv2Client } from "@aws-sdk/client-sesv2";
 import { experimental_wrapLanguageModel as wrapLanguageModel } from "ai";
-import { createOpenAI } from "@ai-sdk/openai";
 import {
 	container,
 	DependencyContainer,

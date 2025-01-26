@@ -1,8 +1,8 @@
 import "reflect-metadata";
 
-import { withSentry } from "./vendor/sentry";
 import { email } from "@app/email";
 import app from "@app/web";
+import { withSentry } from "./vendor/sentry";
 
 export default withSentry(
 	(env) => ({
