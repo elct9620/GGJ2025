@@ -83,12 +83,13 @@ export class KvCityRepository {
 			}
 		});
 
-		for (const name in conversations) {
+		Object.keys(NpcName).forEach((name) => {
 			const npcName = name as NpcName;
-			conversations[npcName].forEach((conversation) => {
-				city.addConversation(npcName, conversation);
+			const conversation = conversations[npcName] || [];
+			conversation.forEach((c) => {
+				city.addConversation(npcName, c);
 			});
-		}
+		});
 
 		return city;
 	}
