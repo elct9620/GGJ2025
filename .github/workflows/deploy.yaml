@@ -39,3 +39,35 @@ jobs:
           sourcemaps: dist
           ignore_missing: true
           version: ${{ steps.revision.outputs.value }}
+      - name: Notify
+        uses: actions/github-script@v7
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        with:
+          script: |
+            const { DISCORD_WEBHOOK_URL } = process.env;
+
+            // Configure content
+            var content = "";
+            if ('${{ job.status }}' === 'success') {
+              content = "# 🎉 版本更新完畢 `${{ steps.revision.outputs.value }}` by `" + context.payload.pusher.name + "` \n## 相關變更";
+            } else {
+              content = "# ❌ 版本更新失敗 `${{ steps.revision.outputs.value }}` by `" + context.payload.pusher.name + "` (`${{ job.status }}`)\n## 相關變更";
+            }
+
+            // Send a message to Discord
+            const res = await fetch(DISCORD_WEBHOOK_URL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                content,
+                embeds: context.payload.commits.map((commit) => ({
+                  title: commit.id,
+                  description: commit.message,
+                  url: commit.url,
+                })),
+              }),
+            });
