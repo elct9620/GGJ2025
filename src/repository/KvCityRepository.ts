@@ -114,8 +114,19 @@ export class KvCityRepository {
 					name,
 					favorability: city.findNpc(name as NpcName)?.favorability,
 				})),
-				...conversations,
 			},
+		});
+
+		Object.keys(NpcName).forEach((name) => {
+			const conversation = conversations[name as NpcName];
+			addBreadcrumb({
+				type: "debug",
+				category: "game.city",
+				data: {
+					name: name,
+					conversation: conversation,
+				},
+			});
 		});
 
 		await this.kv.put(
