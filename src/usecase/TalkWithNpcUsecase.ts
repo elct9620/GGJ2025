@@ -1,8 +1,14 @@
-import { CityRepository, EmailPresenter, Npc } from "./interface";
+import {
+	CityRepository,
+	EmailPresenter,
+	EndMessageBuilder,
+	Npc,
+} from "./interface";
 
 export class TaklWithNpcUsecase {
 	constructor(
 		private readonly presenter: EmailPresenter,
+		private readonly endMessageBuilder: EndMessageBuilder,
 		private readonly cityRepository: CityRepository,
 		private readonly npc: Npc,
 	) {}
@@ -16,6 +22,14 @@ export class TaklWithNpcUsecase {
 		}
 
 		city.refresh();
+
+		if (city.isEnded) {
+			const endMessage = this.endMessageBuilder.build(userId, city);
+			this.presenter.addText(endMessage);
+
+			return;
+		}
+
 		city.addConversation(this.npc.name, { role: "user", content });
 
 		const reply = await this.npc.talk(city);

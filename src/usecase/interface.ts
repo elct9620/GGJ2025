@@ -24,3 +24,7 @@ export interface CityRepository {
 export interface WelcomeMessageBuilder {
 	build(userId: string): string;
 }
+
+export interface EndMessageBuilder {
+	build(userId: string, city: City): string;
+}

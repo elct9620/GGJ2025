@@ -7,6 +7,7 @@ import { GuideUsecase } from "@usecase/GuideUsecase";
 import { GuideAgent } from "@agent/GuideAgent";
 import { KvCityRepository } from "@repository/KvCityRepository";
 import { WelcomeMessageBuilder } from "@builder/WelcomeMessageBuilder";
+import { EndMessageBuilder } from "@builder/EndMessageBuilder";
 
 @injectable()
 export class NewGameController extends EmailController {
@@ -18,6 +19,8 @@ export class NewGameController extends EmailController {
 		@inject(KvCityRepository) private readonly cityRepository: KvCityRepository,
 		@inject(WelcomeMessageBuilder)
 		private readonly welcomeMessageBuilder: WelcomeMessageBuilder,
+		@inject(EndMessageBuilder)
+		private readonly endMessageBuilder: EndMessageBuilder,
 	) {
 		super();
 	}
@@ -38,6 +41,7 @@ export class NewGameController extends EmailController {
 		const usecase = new GuideUsecase(
 			presenter,
 			this.welcomeMessageBuilder,
+			this.endMessageBuilder,
 			this.agent,
 			this.cityRepository,
 		);
