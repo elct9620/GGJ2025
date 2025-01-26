@@ -87,7 +87,7 @@ export class KvCityRepository {
 			const npcName = name as NpcName;
 			const conversation = conversations[npcName] || [];
 			conversation.forEach((c) => {
-				city.addConversation(npcName, c);
+				city.addConversation(npcName, { role: c.role, content: c.content });
 			});
 		});
 
@@ -97,7 +97,12 @@ export class KvCityRepository {
 	async save(city: City): Promise<void> {
 		const conversations = Object.keys(NpcName).reduce(
 			(acc, name) => {
-				acc[name as NpcName] = city.findConversations(name as NpcName);
+				acc[name as NpcName] = city
+					.findConversations(name as NpcName)
+					.map((c) => ({
+						role: c.role,
+						content: c.content,
+					}));
 				return acc;
 			},
 			{} as Record<NpcName, Conversation[]>,
