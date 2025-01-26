@@ -41,7 +41,7 @@ jobs:
           version: ${{ steps.revision.outputs.value }}
       - name: Notify
         uses: actions/github-script@v7
-        if: always()
+        if: always() && env.ENABLE_DISCORD_NOTIFY == 'yes'
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
