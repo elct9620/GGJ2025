@@ -35,9 +35,7 @@ export class NpcMary {
 				damageRate: city.damageRate,
 				isEnded: city.isEnded,
 				isDestroyed: city.isDestroyed,
-				favorability() {
-					return city.findNpc(this.name)?.favorability ?? 50;
-				},
+				favorability: city.findNpc(this.name)?.favorability ?? 50,
 			}),
 			maxSteps: 15,
 			tools: {

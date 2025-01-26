@@ -35,6 +35,7 @@ export class NpcJack {
 				damageRate: city.damageRate,
 				isEnded: city.isEnded,
 				isDestroyed: city.isDestroyed,
+				favorability: city.findNpc(this.name)?.favorability ?? 50,
 			}),
 			maxSteps: 15,
 			tools: {
