@@ -33,3 +33,7 @@ Configure following as secrets in the Cloudflare Workers:
 Then update `wrangler.json` with your own domain and KV namespace.
 
 Finally, run `wrangler deploy` to deploy the game.
+
+## License
+
+The source code is licensed under the MIT license. The game assets (`/assets`) is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
