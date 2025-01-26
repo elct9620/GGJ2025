@@ -35,10 +35,9 @@ export class TaklWithNpcUsecase {
 		city.addConversation(this.npc.name, { role: "user", content });
 
 		const reply = await this.npc.talk(city);
-		this.presenter.addText(reply);
-
 		const progress = this.progressBuilder.build(city);
-		this.presenter.addText("\n\n" + progress);
+
+		this.presenter.addText(reply + "\n\n" + progress);
 
 		await this.cityRepository.save(city);
 	}
