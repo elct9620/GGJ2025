@@ -28,3 +28,7 @@ export interface WelcomeMessageBuilder {
 export interface EndMessageBuilder {
 	build(userId: string, city: City): string;
 }
+
+export interface ProgressBuilder {
+	build(city: City): string;
+}

@@ -3,12 +3,14 @@ import {
 	EmailPresenter,
 	EndMessageBuilder,
 	Npc,
+	ProgressBuilder,
 } from "./interface";
 
 export class TaklWithNpcUsecase {
 	constructor(
 		private readonly presenter: EmailPresenter,
 		private readonly endMessageBuilder: EndMessageBuilder,
+		private readonly progressBuilder: ProgressBuilder,
 		private readonly cityRepository: CityRepository,
 		private readonly npc: Npc,
 	) {}
@@ -33,7 +35,9 @@ export class TaklWithNpcUsecase {
 		city.addConversation(this.npc.name, { role: "user", content });
 
 		const reply = await this.npc.talk(city);
-		this.presenter.addText(reply);
+		const progress = this.progressBuilder.build(city);
+
+		this.presenter.addText(reply + "\n\n" + progress);
 
 		await this.cityRepository.save(city);
 	}

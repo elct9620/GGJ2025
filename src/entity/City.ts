@@ -18,6 +18,7 @@ export class City {
 	static readonly MIN_DAMAGE = 0;
 	static readonly TARGET_DAMAGE_RATE = 0;
 	static readonly REQUIRED_MAX_FAVORABILITY_NPC = 3;
+	static readonly REQUIRED_MIN_FAVORABILITY = 80;
 
 	private conversations: Record<NpcName, Conversation[]> = Object.keys(
 		NpcName,
@@ -69,7 +70,8 @@ export class City {
 		}
 
 		const maxFavorabilityNpcCount = this._npcs.reduce(
-			(count, npc) => (npc.favorability === 100 ? count + 1 : count),
+			(count, npc) =>
+				npc.favorability === City.REQUIRED_MIN_FAVORABILITY ? count + 1 : count,
 			0,
 		);
 

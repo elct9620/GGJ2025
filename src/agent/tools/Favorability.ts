@@ -6,7 +6,7 @@ import { NpcName } from "@entity/Npc";
 
 export function canGetFavorability(npc: NpcName, city: City) {
 	return tool({
-		description: "Get the favorability of the NPC",
+		description: "Get the favorability of the NPC himself",
 		parameters: z.object({}),
 		execute: async () => {
 			const favorability = city.findNpc(npc)?.favorability ?? 50;
@@ -19,9 +19,9 @@ export function canGetFavorability(npc: NpcName, city: City) {
 export function canChangeFavorability(npc: NpcName, city: City) {
 	return tool({
 		description:
-			"According to the interaction with the NPC change the favorability",
+			"According to the player message, the NPC alway change the favorability each time",
 		parameters: z.object({
-			change: z.number().int().min(-10).max(10),
+			change: z.number().int().min(-10).max(20),
 		}),
 		execute: async ({ change }) => {
 			const prevFavorability = city.findNpc(npc)?.favorability;
