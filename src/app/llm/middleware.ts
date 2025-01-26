@@ -110,6 +110,7 @@ export const LlmBreadcrumb: LanguageModelV1Middleware = {
 				mode: params.mode,
 				temperature: params.temperature,
 				inputFormat: params.inputFormat,
+				rawPrompt: result.rawCall.rawPrompt,
 				prompts: params.prompt.flatMap(convertPrompt),
 			},
 		});
