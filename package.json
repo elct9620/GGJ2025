@@ -19,7 +19,7 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"typescript": "^5.5.2",
-		"vitest": "2.1.8",
+		"vitest": "2.1.9",
 		"wrangler": "^3.105.0"
 	},
 	"dependencies": {
